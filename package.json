@@ -1,0 +1,29 @@
+{
+  "name": "accountingsh",
+  "version": "SDK_VERSION_HERE",
+  "description": "Accounting.sh SDK",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/accounting-sh/js_sdk.git"
+  },
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "keywords": [
+    "accounting",
+    "sdk",
+    "api"
+  ],
+  "author": "STAN-TAB CORP. LTD <support@stantabcorp.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.22.0",
+    "mocha": "^10.6.0",
+    "prettier": "^3.3.2"
+  },
+  "type": "module"
+}
