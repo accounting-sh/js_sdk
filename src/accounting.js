@@ -49,10 +49,16 @@ import axios from "axios";
 export class Accounting {
   token;
   url;
+  config;
 
-  constructor(token, url = "https://api.accounting.sh") {
+  constructor(token, url = "https://api.accounting.sh", config = {}) {
     this.token = token;
     this.url = url;
+    this.config = config;
+
+    if (!this.config) {
+      config.headers["User-Agent"] = "AccountingSh//js";
+    }
   }
 
   request(method, url, config = {}) {
@@ -60,7 +66,7 @@ export class Accounting {
       config.headers = {};
     }
     config.headers["Authorization"] = "Bearer " + this.token;
-    config.headers["User-Agent"] = "AccountingSh//js";
+
     return new Promise((resolve, reject) => {
       axios
         .request({
@@ -70,6 +76,7 @@ export class Accounting {
             baseURL: this.url,
           },
           ...config,
+          ...this.config,
         })
         .then((response) => {
           resolve(response.data);
