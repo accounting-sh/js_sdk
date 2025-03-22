@@ -5,10 +5,10 @@ All URIs are relative to *https://api.accounting.sh*
 | Method                                           | HTTP request                | Description                 |
 | ------------------------------------------------ | --------------------------- | --------------------------- |
 | [**addUser**](UsersApi.md#addUser)               | **POST** /users             | Add user                    |
+| [**deleteUser**](UsersApi.md#deleteUser)         | **DELETE** /users/{uuid}    | Delete user                 |
 | [**getUser**](UsersApi.md#getUser)               | **GET** /users/{uuid}       | View user                   |
 | [**listUsers**](UsersApi.md#listUsers)           | **GET** /users              | List company&#39;s users    |
 | [**updateUser**](UsersApi.md#updateUser)         | **PUT** /users/{uuid}       | Update user                 |
-| [**updateUser_0**](UsersApi.md#updateUser_0)     | **DELETE** /users/{uuid}    | Update user                 |
 | [**usersCompanies**](UsersApi.md#usersCompanies) | **GET** /users/me/companies | List current user companies |
 | [**usersMe**](UsersApi.md#usersMe)               | **GET** /users/me           | View current user details   |
 
@@ -46,6 +46,42 @@ accounting.users.addUser(addUserRequest).then(
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+## deleteUser
+
+> deleteUser(uuid)
+
+Delete user
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The user uuid
+
+accounting.users.deleteUser(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name     | Type       | Description   | Notes |
+| -------- | ---------- | ------------- | ----- |
+| **uuid** | **String** | The user uuid |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 ## getUser
@@ -160,42 +196,6 @@ accounting.users.updateUser(uuid, updateUserRequest).then(
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-## updateUser_0
-
-> updateUser_0(uuid)
-
-Update user
-
-### Example
-
-```javascript
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-let uuid = "uuid_example"; // String | The user uuid
-
-accounting.users.updateUser_0(uuid).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-```
-
-### Parameters
-
-| Name     | Type       | Description   | Notes |
-| -------- | ---------- | ------------- | ----- |
-| **uuid** | **String** | The user uuid |
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 ## usersCompanies
