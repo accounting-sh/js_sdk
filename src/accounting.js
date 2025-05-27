@@ -83,11 +83,7 @@ export class Accounting {
           ...this.config,
         })
         .then((response) => {
-          if (this.config.returnFormat && this.config.returnFormat === "blob") {
-            resolve(response.blob());
-          } else {
-            resolve(response.data);
-          }
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error); // FIXME: Add a real error handling logic
