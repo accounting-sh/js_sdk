@@ -2516,6 +2516,25 @@ accounting.transactions.importTransactions(importTransactionsRequest).then(
   },
 );
 
+//..ledger
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let fields = "fields_example"; // String | A comma separated list of fields requested in the response
+let page = "page_example"; // String | The response page
+let perPage = "perPage_example"; // String | The number of items per page
+let account = "account_example"; // String | An account uuid to filter results
+
+accounting.transactions.ledger(fields, page, perPage, account).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..listTransactionCodes
 import { Accounting } from "accountingsh";
 

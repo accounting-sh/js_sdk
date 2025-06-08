@@ -2,18 +2,19 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                                | HTTP request                                 | Description                     |
-| --------------------------------------------------------------------- | -------------------------------------------- | ------------------------------- |
-| [**addTransaction**](TransactionsApi.md#addTransaction)               | **POST** /transactions                       | Add a transaction               |
-| [**addTransactionCode**](TransactionsApi.md#addTransactionCode)       | **POST** /transactions/{uuid}/codes          | Add a transaction&#39;s code    |
-| [**deleteTransaction**](TransactionsApi.md#deleteTransaction)         | **DELETE** /transactions/{uuid}              | Delete a transaction            |
-| [**deleteTransactionCode**](TransactionsApi.md#deleteTransactionCode) | **DELETE** /transactions/{uuid}/codes/{code} | Delete a transaction&#39;s code |
-| [**getTransaction**](TransactionsApi.md#getTransaction)               | **GET** /transactions/{uuid}                 | Get a transaction               |
-| [**importTransactions**](TransactionsApi.md#importTransactions)       | **POST** /transactions/import                | Import transactions - INTERNAL  |
-| [**listTransactionCodes**](TransactionsApi.md#listTransactionCodes)   | **GET** /transactions/{uuid}/codes           | List transaction&#39;s codes    |
-| [**listTransactions**](TransactionsApi.md#listTransactions)           | **GET** /transactions                        | List company&#39;s transactions |
-| [**updateTransaction**](TransactionsApi.md#updateTransaction)         | **PUT** /transactions/{uuid}                 | Update a transaction            |
-| [**updateTransactionCode**](TransactionsApi.md#updateTransactionCode) | **PUT** /transactions/{uuid}/codes           | Update a transaction&#39;s code |
+| Method                                                                | HTTP request                                 | Description                                   |
+| --------------------------------------------------------------------- | -------------------------------------------- | --------------------------------------------- |
+| [**addTransaction**](TransactionsApi.md#addTransaction)               | **POST** /transactions                       | Add a transaction                             |
+| [**addTransactionCode**](TransactionsApi.md#addTransactionCode)       | **POST** /transactions/{uuid}/codes          | Add a transaction&#39;s code                  |
+| [**deleteTransaction**](TransactionsApi.md#deleteTransaction)         | **DELETE** /transactions/{uuid}              | Delete a transaction                          |
+| [**deleteTransactionCode**](TransactionsApi.md#deleteTransactionCode) | **DELETE** /transactions/{uuid}/codes/{code} | Delete a transaction&#39;s code               |
+| [**getTransaction**](TransactionsApi.md#getTransaction)               | **GET** /transactions/{uuid}                 | Get a transaction                             |
+| [**importTransactions**](TransactionsApi.md#importTransactions)       | **POST** /transactions/import                | Import transactions - INTERNAL                |
+| [**ledger**](TransactionsApi.md#ledger)                               | **GET** /transactions/ledger                 | List company&#39;s transactions and transfers |
+| [**listTransactionCodes**](TransactionsApi.md#listTransactionCodes)   | **GET** /transactions/{uuid}/codes           | List transaction&#39;s codes                  |
+| [**listTransactions**](TransactionsApi.md#listTransactions)           | **GET** /transactions                        | List company&#39;s transactions               |
+| [**updateTransaction**](TransactionsApi.md#updateTransaction)         | **PUT** /transactions/{uuid}                 | Update a transaction                          |
+| [**updateTransactionCode**](TransactionsApi.md#updateTransactionCode) | **PUT** /transactions/{uuid}/codes           | Update a transaction&#39;s code               |
 
 ## addTransaction
 
@@ -237,6 +238,48 @@ accounting.transactions.importTransactions(importTransactionsRequest).then(
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+## ledger
+
+> ledger(fields, page, perPage, account)
+
+List company&#39;s transactions and transfers
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let fields = "fields_example"; // String | A comma separated list of fields requested in the response
+let page = "page_example"; // String | The response page
+let perPage = "perPage_example"; // String | The number of items per page
+let account = "account_example"; // String | An account uuid to filter results
+
+accounting.transactions.ledger(fields, page, perPage, account).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name        | Type       | Description                                                | Notes      |
+| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
+| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
+| **page**    | **String** | The response page                                          | [optional] |
+| **perPage** | **String** | The number of items per page                               | [optional] |
+| **account** | **String** | An account uuid to filter results                          | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 ## listTransactionCodes
