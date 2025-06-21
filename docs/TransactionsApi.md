@@ -2,19 +2,62 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                                | HTTP request                                 | Description                                   |
-| --------------------------------------------------------------------- | -------------------------------------------- | --------------------------------------------- |
-| [**addTransaction**](TransactionsApi.md#addTransaction)               | **POST** /transactions                       | Add a transaction                             |
-| [**addTransactionCode**](TransactionsApi.md#addTransactionCode)       | **POST** /transactions/{uuid}/codes          | Add a transaction&#39;s code                  |
-| [**deleteTransaction**](TransactionsApi.md#deleteTransaction)         | **DELETE** /transactions/{uuid}              | Delete a transaction                          |
-| [**deleteTransactionCode**](TransactionsApi.md#deleteTransactionCode) | **DELETE** /transactions/{uuid}/codes/{code} | Delete a transaction&#39;s code               |
-| [**getTransaction**](TransactionsApi.md#getTransaction)               | **GET** /transactions/{uuid}                 | Get a transaction                             |
-| [**importTransactions**](TransactionsApi.md#importTransactions)       | **POST** /transactions/import                | Import transactions - INTERNAL                |
-| [**ledger**](TransactionsApi.md#ledger)                               | **GET** /transactions/ledger                 | List company&#39;s transactions and transfers |
-| [**listTransactionCodes**](TransactionsApi.md#listTransactionCodes)   | **GET** /transactions/{uuid}/codes           | List transaction&#39;s codes                  |
-| [**listTransactions**](TransactionsApi.md#listTransactions)           | **GET** /transactions                        | List company&#39;s transactions               |
-| [**updateTransaction**](TransactionsApi.md#updateTransaction)         | **PUT** /transactions/{uuid}                 | Update a transaction                          |
-| [**updateTransactionCode**](TransactionsApi.md#updateTransactionCode) | **PUT** /transactions/{uuid}/codes           | Update a transaction&#39;s code               |
+| Method                                                                | HTTP request                                      | Description                                   |
+| --------------------------------------------------------------------- | ------------------------------------------------- | --------------------------------------------- |
+| [**addLink**](TransactionsApi.md#addLink)                             | **POST** /transactions/{uuid}/links               | Add a new transaction link                    |
+| [**addTransaction**](TransactionsApi.md#addTransaction)               | **POST** /transactions                            | Add a transaction                             |
+| [**addTransactionCode**](TransactionsApi.md#addTransactionCode)       | **POST** /transactions/{uuid}/codes               | Add a transaction&#39;s code                  |
+| [**deleteLink**](TransactionsApi.md#deleteLink)                       | **DELETE** /transactions/{uuid}/links/{link_uuid} | Delete a transaction link                     |
+| [**deleteTransaction**](TransactionsApi.md#deleteTransaction)         | **DELETE** /transactions/{uuid}                   | Delete a transaction                          |
+| [**deleteTransactionCode**](TransactionsApi.md#deleteTransactionCode) | **DELETE** /transactions/{uuid}/codes/{code}      | Delete a transaction&#39;s code               |
+| [**getTransaction**](TransactionsApi.md#getTransaction)               | **GET** /transactions/{uuid}                      | Get a transaction                             |
+| [**importTransactions**](TransactionsApi.md#importTransactions)       | **POST** /transactions/import                     | Import transactions - INTERNAL                |
+| [**ledger**](TransactionsApi.md#ledger)                               | **GET** /transactions/ledger                      | List company&#39;s transactions and transfers |
+| [**listLinks**](TransactionsApi.md#listLinks)                         | **GET** /transactions/{uuid}/links                | List a transaction links                      |
+| [**listTransactionCodes**](TransactionsApi.md#listTransactionCodes)   | **GET** /transactions/{uuid}/codes                | List transaction&#39;s codes                  |
+| [**listTransactions**](TransactionsApi.md#listTransactions)           | **GET** /transactions                             | List company&#39;s transactions               |
+| [**updateLink**](TransactionsApi.md#updateLink)                       | **PUT** /transactions/{uuid}/links/{link_uuid}    | Update a transaction link                     |
+| [**updateTransaction**](TransactionsApi.md#updateTransaction)         | **PUT** /transactions/{uuid}                      | Update a transaction                          |
+| [**updateTransactionCode**](TransactionsApi.md#updateTransactionCode) | **PUT** /transactions/{uuid}/codes                | Update a transaction&#39;s code               |
+| [**viewLink**](TransactionsApi.md#viewLink)                           | **GET** /transactions/{uuid}/links/{link_uuid}    | View a transaction link                       |
+
+## addLink
+
+> addLink(listLinks200ResponseLinksInner, uuid)
+
+Add a new transaction link
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let listLinks200ResponseLinksInner = {}; // ListLinks200ResponseLinksInner |
+let uuid = "uuid_example"; // String | A transaction uuid
+
+accounting.transactions.addLink(listLinks200ResponseLinksInner, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name                               | Type                                                                    | Description        | Notes      |
+| ---------------------------------- | ----------------------------------------------------------------------- | ------------------ | ---------- |
+| **listLinks200ResponseLinksInner** | [**ListLinks200ResponseLinksInner**](ListLinks200ResponseLinksInner.md) |                    |
+| **uuid**                           | **String**                                                              | A transaction uuid | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ## addTransaction
 
@@ -90,6 +133,44 @@ accounting.transactions
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+## deleteLink
+
+> deleteLink(uuid, linkUuid)
+
+Delete a transaction link
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | A transaction uuid
+let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+
+accounting.transactions.deleteLink(uuid, linkUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name         | Type       | Description                                | Notes      |
+| ------------ | ---------- | ------------------------------------------ | ---------- |
+| **uuid**     | **String** | A transaction uuid                         | [optional] |
+| **linkUuid** | **String** | A transaction link uuid OR the target uuid | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 ## deleteTransaction
@@ -282,6 +363,48 @@ accounting.transactions.ledger(fields, page, perPage, account).then(
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
+## listLinks
+
+> listLinks(fields, page, perPage, uuid)
+
+List a transaction links
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let fields = "fields_example"; // String | A comma separated list of fields requested in the response
+let page = "page_example"; // String | The response page
+let perPage = "perPage_example"; // String | The number of items per page
+let uuid = "uuid_example"; // String | A transaction uuid
+
+accounting.transactions.listLinks(fields, page, perPage, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name        | Type       | Description                                                | Notes      |
+| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
+| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
+| **page**    | **String** | The response page                                          | [optional] |
+| **perPage** | **String** | The number of items per page                               | [optional] |
+| **uuid**    | **String** | A transaction uuid                                         | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 ## listTransactionCodes
 
 > listTransactionCodes(uuid, fields, page, perPage, account)
@@ -370,6 +493,48 @@ accounting.transactions.listTransactions(fields, page, perPage, account).then(
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
+## updateLink
+
+> updateLink(listLinks200ResponseLinksInner, uuid, linkUuid)
+
+Update a transaction link
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let listLinks200ResponseLinksInner = {}; // ListLinks200ResponseLinksInner |
+let uuid = "uuid_example"; // String | A transaction uuid
+let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+
+accounting.transactions
+  .updateLink(listLinks200ResponseLinksInner, uuid, linkUuid)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+```
+
+### Parameters
+
+| Name                               | Type                                                                    | Description                                | Notes      |
+| ---------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------ | ---------- |
+| **listLinks200ResponseLinksInner** | [**ListLinks200ResponseLinksInner**](ListLinks200ResponseLinksInner.md) |                                            |
+| **uuid**                           | **String**                                                              | A transaction uuid                         | [optional] |
+| **linkUuid**                       | **String**                                                              | A transaction link uuid OR the target uuid | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
 ## updateTransaction
 
 > updateTransaction(uuid, addTransactionRequest)
@@ -446,4 +611,42 @@ accounting.transactions
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+## viewLink
+
+> viewLink(uuid, linkUuid)
+
+View a transaction link
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | A transaction uuid
+let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+
+accounting.transactions.viewLink(uuid, linkUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name         | Type       | Description                                | Notes      |
+| ------------ | ---------- | ------------------------------------------ | ---------- |
+| **uuid**     | **String** | A transaction uuid                         | [optional] |
+| **linkUuid** | **String** | A transaction link uuid OR the target uuid | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json

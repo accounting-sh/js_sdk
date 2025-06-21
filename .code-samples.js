@@ -2216,10 +2216,10 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let q = "q_example"; // String | Query string
-let excluse = "excluse_example"; // String | Exclude specific types. This is a comma separated list.
+let exclude = "exclude_example"; // String | Exclude specific types. This is a comma separated list.
 let only = "only_example"; // String | Perfom search only on those types. This is a comma separated list.
 
-accounting.search.search(q, excluse, only).then(
+accounting.search.search(q, exclude, only).then(
   (data) => {
     console.log(data);
   },
@@ -2416,6 +2416,23 @@ accounting.tax.verifyVatId(number).then(
   },
 );
 
+//..addLink
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let listLinks200ResponseLinksInner = {}; // ListLinks200ResponseLinksInner |
+let uuid = "uuid_example"; // String | A transaction uuid
+
+accounting.transactions.addLink(listLinks200ResponseLinksInner, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..addTransaction
 import { Accounting } from "accountingsh";
 
@@ -2450,6 +2467,23 @@ accounting.transactions
       console.error(error);
     },
   );
+
+//..deleteLink
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | A transaction uuid
+let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+
+accounting.transactions.deleteLink(uuid, linkUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
 
 //..deleteTransaction
 import { Accounting } from "accountingsh";
@@ -2535,6 +2569,25 @@ accounting.transactions.ledger(fields, page, perPage, account).then(
   },
 );
 
+//..listLinks
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let fields = "fields_example"; // String | A comma separated list of fields requested in the response
+let page = "page_example"; // String | The response page
+let perPage = "perPage_example"; // String | The number of items per page
+let uuid = "uuid_example"; // String | A transaction uuid
+
+accounting.transactions.listLinks(fields, page, perPage, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..listTransactionCodes
 import { Accounting } from "accountingsh";
 
@@ -2576,6 +2629,26 @@ accounting.transactions.listTransactions(fields, page, perPage, account).then(
   },
 );
 
+//..updateLink
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let listLinks200ResponseLinksInner = {}; // ListLinks200ResponseLinksInner |
+let uuid = "uuid_example"; // String | A transaction uuid
+let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+
+accounting.transactions
+  .updateLink(listLinks200ResponseLinksInner, uuid, linkUuid)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
 //..updateTransaction
 import { Accounting } from "accountingsh";
 
@@ -2611,6 +2684,23 @@ accounting.transactions
       console.error(error);
     },
   );
+
+//..viewLink
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | A transaction uuid
+let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+
+accounting.transactions.viewLink(uuid, linkUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
 
 //..addTransfer
 import { Accounting } from "accountingsh";
