@@ -89,7 +89,7 @@ export class TransactionsApi {
   deleteLink(uuid = null, linkUuid = null) {
     let path = "/transactions/{uuid}/links/{link_uuid}";
     path = path.replace("{uuid}", uuid);
-    path = path.replace("{linkUuid}", linkUuid);
+    path = path.replace("{link_uuid}", linkUuid);
 
     let options = {
       params: {},
@@ -276,7 +276,7 @@ export class TransactionsApi {
 
     let path = "/transactions/{uuid}/links/{link_uuid}";
     path = path.replace("{uuid}", uuid);
-    path = path.replace("{linkUuid}", linkUuid);
+    path = path.replace("{link_uuid}", linkUuid);
 
     let options = {
       params: {},
@@ -344,7 +344,7 @@ export class TransactionsApi {
   viewLink(uuid = null, linkUuid = null) {
     let path = "/transactions/{uuid}/links/{link_uuid}";
     path = path.replace("{uuid}", uuid);
-    path = path.replace("{linkUuid}", linkUuid);
+    path = path.replace("{link_uuid}", linkUuid);
 
     let options = {
       params: {},
