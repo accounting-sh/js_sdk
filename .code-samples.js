@@ -52,6 +52,72 @@ accounting.accountConnections.listBanks(uuid, country).then(
   },
 );
 
+//..listConnectableBankAccounts
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let connection = "connection_example"; // String | The connection request UUID
+
+accounting.accountConnections.listConnectableBankAccounts(connection).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..listConnectedAccountTransactions
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let period = 3.4; // Number | The number of days to look back for transactions. Default is 7 days.
+
+accounting.accountConnections.listConnectedAccountTransactions(period).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..requestBankConnection
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let requestBankConnectionRequest = {}; // RequestBankConnectionRequest |
+
+accounting.accountConnections
+  .requestBankConnection(requestBankConnectionRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..selectBankAccount
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let selectBankAccountRequest = {}; // SelectBankAccountRequest |
+
+accounting.accountConnections.selectBankAccount(selectBankAccountRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..addAccountingCode
 import { Accounting } from "accountingsh";
 
