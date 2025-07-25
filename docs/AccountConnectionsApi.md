@@ -132,7 +132,7 @@ accounting.accountConnections.listBanks(uuid, country).then(
 
 ## listConnectableBankAccounts
 
-> listConnectableBankAccounts(connection)
+> listConnectableBankAccounts(uuid, connection)
 
 List connectable bank accounts
 
@@ -143,82 +143,11 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The account uuid
 let connection = "connection_example"; // String | The connection request UUID
 
-accounting.accountConnections.listConnectableBankAccounts(connection).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-```
-
-### Parameters
-
-| Name           | Type       | Description                 | Notes      |
-| -------------- | ---------- | --------------------------- | ---------- |
-| **connection** | **String** | The connection request UUID | [optional] |
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-## listConnectedAccountTransactions
-
-> listConnectedAccountTransactions(period)
-
-List the connected account&#39;s transactions
-
-### Example
-
-```javascript
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-let period = 3.4; // Number | The number of days to look back for transactions. Default is 7 days.
-
-accounting.accountConnections.listConnectedAccountTransactions(period).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-```
-
-### Parameters
-
-| Name       | Type       | Description                                                          | Notes      |
-| ---------- | ---------- | -------------------------------------------------------------------- | ---------- |
-| **period** | **Number** | The number of days to look back for transactions. Default is 7 days. | [optional] |
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-## requestBankConnection
-
-> requestBankConnection(requestBankConnectionRequest)
-
-Request a new bank connection
-
-### Example
-
-```javascript
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-let requestBankConnectionRequest = {}; // RequestBankConnectionRequest |
-
 accounting.accountConnections
-  .requestBankConnection(requestBankConnectionRequest)
+  .listConnectableBankAccounts(uuid, connection)
   .then(
     (data) => {
       console.log(data);
@@ -231,9 +160,92 @@ accounting.accountConnections
 
 ### Parameters
 
-| Name                             | Type                                                                | Description | Notes |
-| -------------------------------- | ------------------------------------------------------------------- | ----------- | ----- |
-| **requestBankConnectionRequest** | [**RequestBankConnectionRequest**](RequestBankConnectionRequest.md) |             |
+| Name           | Type       | Description                 | Notes      |
+| -------------- | ---------- | --------------------------- | ---------- |
+| **uuid**       | **String** | The account uuid            |
+| **connection** | **String** | The connection request UUID | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+## listConnectedAccountTransactions
+
+> listConnectedAccountTransactions(uuid, connection, period)
+
+List the connected account&#39;s transactions
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The account uuid
+let connection = "connection_example"; // String | The connection uuid
+let period = 3.4; // Number | The number of days to look back for transactions. Default is 7 days.
+
+accounting.accountConnections
+  .listConnectedAccountTransactions(uuid, connection, period)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+```
+
+### Parameters
+
+| Name           | Type       | Description                                                          | Notes      |
+| -------------- | ---------- | -------------------------------------------------------------------- | ---------- |
+| **uuid**       | **String** | The account uuid                                                     |
+| **connection** | **String** | The connection uuid                                                  |
+| **period**     | **Number** | The number of days to look back for transactions. Default is 7 days. | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+## requestBankConnection
+
+> requestBankConnection(uuid, requestBankConnectionRequest)
+
+Request a new bank connection
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The account uuid
+let requestBankConnectionRequest = {}; // RequestBankConnectionRequest |
+
+accounting.accountConnections
+  .requestBankConnection(uuid, requestBankConnectionRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+```
+
+### Parameters
+
+| Name                             | Type                                                                | Description      | Notes |
+| -------------------------------- | ------------------------------------------------------------------- | ---------------- | ----- |
+| **uuid**                         | **String**                                                          | The account uuid |
+| **requestBankConnectionRequest** | [**RequestBankConnectionRequest**](RequestBankConnectionRequest.md) |                  |
 
 ### HTTP request headers
 
@@ -242,7 +254,7 @@ accounting.accountConnections
 
 ## selectBankAccount
 
-> selectBankAccount(selectBankAccountRequest)
+> selectBankAccount(uuid, selectBankAccountRequest)
 
 Select a bank account to connect
 
@@ -253,23 +265,27 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The account uuid
 let selectBankAccountRequest = {}; // SelectBankAccountRequest |
 
-accounting.accountConnections.selectBankAccount(selectBankAccountRequest).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.accountConnections
+  .selectBankAccount(uuid, selectBankAccountRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 ```
 
 ### Parameters
 
-| Name                         | Type                                                        | Description | Notes |
-| ---------------------------- | ----------------------------------------------------------- | ----------- | ----- |
-| **selectBankAccountRequest** | [**SelectBankAccountRequest**](SelectBankAccountRequest.md) |             |
+| Name                         | Type                                                        | Description      | Notes |
+| ---------------------------- | ----------------------------------------------------------- | ---------------- | ----- |
+| **uuid**                     | **String**                                                  | The account uuid |
+| **selectBankAccountRequest** | [**SelectBankAccountRequest**](SelectBankAccountRequest.md) |                  |
 
 ### HTTP request headers
 

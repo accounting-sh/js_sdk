@@ -57,42 +57,50 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The account uuid
 let connection = "connection_example"; // String | The connection request UUID
 
-accounting.accountConnections.listConnectableBankAccounts(connection).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.accountConnections
+  .listConnectableBankAccounts(uuid, connection)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..listConnectedAccountTransactions
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The account uuid
+let connection = "connection_example"; // String | The connection uuid
 let period = 3.4; // Number | The number of days to look back for transactions. Default is 7 days.
 
-accounting.accountConnections.listConnectedAccountTransactions(period).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.accountConnections
+  .listConnectedAccountTransactions(uuid, connection, period)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..requestBankConnection
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The account uuid
 let requestBankConnectionRequest = {}; // RequestBankConnectionRequest |
 
 accounting.accountConnections
-  .requestBankConnection(requestBankConnectionRequest)
+  .requestBankConnection(uuid, requestBankConnectionRequest)
   .then(
     (data) => {
       console.log(data);
@@ -107,16 +115,19 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The account uuid
 let selectBankAccountRequest = {}; // SelectBankAccountRequest |
 
-accounting.accountConnections.selectBankAccount(selectBankAccountRequest).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.accountConnections
+  .selectBankAccount(uuid, selectBankAccountRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..addAccountingCode
 import { Accounting } from "accountingsh";
