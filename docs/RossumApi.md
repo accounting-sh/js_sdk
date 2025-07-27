@@ -4,13 +4,13 @@ All URIs are relative to *https://api.accounting.sh*
 
 | Method                                      | HTTP request                     | Description                   |
 | ------------------------------------------- | -------------------------------- | ----------------------------- |
-| [**listReviews**](RossumApi.md#listReviews) | **GET** /external/rossum/reviews | List documents to be reviewes |
+| [**listReviews**](RossumApi.md#listReviews) | **GET** /external/rossum/reviews | List documents to be reviewed |
 
 ## listReviews
 
 > listReviews(fields, page, perPage)
 
-List documents to be reviewes
+List documents to be reviewed
 
 ### Example
 

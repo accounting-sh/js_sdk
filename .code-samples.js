@@ -4,8 +4,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
+let connection = "connection_example"; // String | The connection uuid
 
-accounting.accountConnections.deleteAccountConnection(uuid).then(
+accounting.accountConnections.deleteAccountConnection(uuid, connection).then(
   (data) => {
     console.log(data);
   },

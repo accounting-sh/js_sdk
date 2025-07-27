@@ -2,19 +2,19 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                                                            | HTTP request                                  | Description                                   |
-| ------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| [**deleteAccountConnection**](AccountConnectionsApi.md#deleteAccountConnection)                   | **DELETE** /accounts/{uuid}/connect           | Delete an account&#39;s connection            |
-| [**listAccountConnections**](AccountConnectionsApi.md#listAccountConnections)                     | **GET** /accounts/{uuid}/connect              | List account&#39;s connections                |
-| [**listBanks**](AccountConnectionsApi.md#listBanks)                                               | **GET** /accounts/{uuid}/connect/banks        | List available bank connections               |
-| [**listConnectableBankAccounts**](AccountConnectionsApi.md#listConnectableBankAccounts)           | **GET** /accounts/{uuid}/connect/accounts     | List connectable bank accounts                |
-| [**listConnectedAccountTransactions**](AccountConnectionsApi.md#listConnectedAccountTransactions) | **GET** /accounts/{uuid}/connect/{connection} | List the connected account&#39;s transactions |
-| [**requestBankConnection**](AccountConnectionsApi.md#requestBankConnection)                       | **POST** /accounts/{uuid}/connect/request     | Request a new bank connection                 |
-| [**selectBankAccount**](AccountConnectionsApi.md#selectBankAccount)                               | **POST** /accounts/{uuid}/connect/accounts    | Select a bank account to connect              |
+| Method                                                                                            | HTTP request                                     | Description                                   |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------- |
+| [**deleteAccountConnection**](AccountConnectionsApi.md#deleteAccountConnection)                   | **DELETE** /accounts/{uuid}/connect/{connection} | Delete an account&#39;s connection            |
+| [**listAccountConnections**](AccountConnectionsApi.md#listAccountConnections)                     | **GET** /accounts/{uuid}/connect                 | List account&#39;s connections                |
+| [**listBanks**](AccountConnectionsApi.md#listBanks)                                               | **GET** /accounts/{uuid}/connect/banks           | List available bank connections               |
+| [**listConnectableBankAccounts**](AccountConnectionsApi.md#listConnectableBankAccounts)           | **GET** /accounts/{uuid}/connect/accounts        | List connectable bank accounts                |
+| [**listConnectedAccountTransactions**](AccountConnectionsApi.md#listConnectedAccountTransactions) | **GET** /accounts/{uuid}/connect/{connection}    | List the connected account&#39;s transactions |
+| [**requestBankConnection**](AccountConnectionsApi.md#requestBankConnection)                       | **POST** /accounts/{uuid}/connect/request        | Request a new bank connection                 |
+| [**selectBankAccount**](AccountConnectionsApi.md#selectBankAccount)                               | **POST** /accounts/{uuid}/connect/accounts       | Select a bank account to connect              |
 
 ## deleteAccountConnection
 
-> deleteAccountConnection(uuid)
+> deleteAccountConnection(uuid, connection)
 
 Delete an account&#39;s connection
 
@@ -26,8 +26,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
+let connection = "connection_example"; // String | The connection uuid
 
-accounting.accountConnections.deleteAccountConnection(uuid).then(
+accounting.accountConnections.deleteAccountConnection(uuid, connection).then(
   (data) => {
     console.log(data);
   },
@@ -39,9 +40,10 @@ accounting.accountConnections.deleteAccountConnection(uuid).then(
 
 ### Parameters
 
-| Name     | Type       | Description      | Notes |
-| -------- | ---------- | ---------------- | ----- |
-| **uuid** | **String** | The account uuid |
+| Name           | Type       | Description         | Notes |
+| -------------- | ---------- | ------------------- | ----- |
+| **uuid**       | **String** | The account uuid    |
+| **connection** | **String** | The connection uuid |
 
 ### HTTP request headers
 
