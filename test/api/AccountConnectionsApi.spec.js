@@ -19,8 +19,9 @@ let mock = new MockAdapter(axios);
 describe("AccountConnectionsApi", function () {
   describe("deleteAccountConnection", function () {
     it("should call deleteAccountConnection successfully", function (done) {
-      let path = "/accounts/{uuid}/connect";
+      let path = "/accounts/{uuid}/connect/{connection}";
       path = path.replace("{" + "uuid" + "}", "uuid_example");
+      path = path.replace("{" + "connection" + "}", "connection_example");
 
       mock.onAny(path).reply(200, {});
       let accounting = new Accounting(
@@ -28,7 +29,7 @@ describe("AccountConnectionsApi", function () {
         "https://fake-endpoint.accounting.sh",
       );
       accounting.accountConnections
-        .deleteAccountConnection("uuid_example")
+        .deleteAccountConnection("uuid_example", "connection_example")
         .then(() => {
           done();
         })
