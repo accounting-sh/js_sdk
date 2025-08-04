@@ -790,24 +790,6 @@ accounting.companies.updateCompany(uuid, addCompanyRequest).then(
   },
 );
 
-//..getStatistics
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-let uuid = "uuid_example"; // String | The company uuid
-let start = "start_example"; // String | Start date
-let end = "end_example"; // String | End date
-
-accounting.companyStatistics.getStatistics(uuid, start, end).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-
 //..addContact
 import { Accounting } from "accountingsh";
 
@@ -2352,6 +2334,23 @@ let key = "key_example"; // String | The setting key
 let updateSettingsRequest = {}; // UpdateSettingsRequest |
 
 accounting.settings.updateSettings(uuid, key, updateSettingsRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..summaryStatisticsPeriod
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let start = new Date("2013-10-20"); // Date | The start date
+let end = new Date("2013-10-20"); // Date | The end date
+
+accounting.statistics.summaryStatisticsPeriod(start, end).then(
   (data) => {
     console.log(data);
   },

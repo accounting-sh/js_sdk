@@ -10,26 +10,21 @@
  *
  */
 
-export class CountriesApi {
+export class StatisticsApi {
   accounting;
 
   constructor(accounting) {
     this.accounting = accounting;
   }
 
-  getTranslatedCountries(lang) {
-    // verify the required parameter 'lang' is set
-    if (lang === undefined || lang === null) {
-      throw new Error(
-        "Missing the required parameter 'lang' when calling getTranslatedCountries",
-      );
-    }
-
-    let path = "/countries/{lang}";
-    path = path.replace("{lang}", lang);
+  summaryStatisticsPeriod(start = null, end = null) {
+    let path = "/companies/{uuid}/statistics/summary";
 
     let options = {
-      params: {},
+      params: {
+        start: start,
+        end: end,
+      },
       data: {},
     };
 
