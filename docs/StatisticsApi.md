@@ -8,7 +8,7 @@ All URIs are relative to *https://api.accounting.sh*
 
 ## summaryStatisticsPeriod
 
-> summaryStatisticsPeriod(start, end)
+> summaryStatisticsPeriod(uuid, start, end)
 
 Company&#39;s summary statistics
 
@@ -19,10 +19,11 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The company uuid
 let start = new Date("2013-10-20"); // Date | The start date
 let end = new Date("2013-10-20"); // Date | The end date
 
-accounting.statistics.summaryStatisticsPeriod(start, end).then(
+accounting.statistics.summaryStatisticsPeriod(uuid, start, end).then(
   (data) => {
     console.log(data);
   },
@@ -34,10 +35,11 @@ accounting.statistics.summaryStatisticsPeriod(start, end).then(
 
 ### Parameters
 
-| Name      | Type     | Description    | Notes      |
-| --------- | -------- | -------------- | ---------- |
-| **start** | **Date** | The start date | [optional] |
-| **end**   | **Date** | The end date   | [optional] |
+| Name      | Type       | Description      | Notes      |
+| --------- | ---------- | ---------------- | ---------- |
+| **uuid**  | **String** | The company uuid |
+| **start** | **Date**   | The start date   | [optional] |
+| **end**   | **Date**   | The end date     | [optional] |
 
 ### HTTP request headers
 

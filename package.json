@@ -1,6 +1,6 @@
 {
   "name": "accountingsh",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Accounting.sh SDK",
   "main": "src/index.js",
   "repository": {

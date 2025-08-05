@@ -2347,10 +2347,11 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
+let uuid = "uuid_example"; // String | The company uuid
 let start = new Date("2013-10-20"); // Date | The start date
 let end = new Date("2013-10-20"); // Date | The end date
 
-accounting.statistics.summaryStatisticsPeriod(start, end).then(
+accounting.statistics.summaryStatisticsPeriod(uuid, start, end).then(
   (data) => {
     console.log(data);
   },
