@@ -2929,6 +2929,23 @@ accounting.users.listUsers(fields, page, perPage).then(
   },
 );
 
+//..updateMe
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let name = "name_example"; // String |
+let avatar = null; // File |
+
+accounting.users.updateMe(name, avatar).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..updateUser
 import { Accounting } from "accountingsh";
 

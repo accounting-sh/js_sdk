@@ -8,6 +8,7 @@ All URIs are relative to *https://api.accounting.sh*
 | [**deleteUser**](UsersApi.md#deleteUser)         | **DELETE** /users/{uuid}    | Delete user                 |
 | [**getUser**](UsersApi.md#getUser)               | **GET** /users/{uuid}       | View user                   |
 | [**listUsers**](UsersApi.md#listUsers)           | **GET** /users              | List company&#39;s users    |
+| [**updateMe**](UsersApi.md#updateMe)             | **PATCH** /users/me         | Update current user details |
 | [**updateUser**](UsersApi.md#updateUser)         | **PUT** /users/{uuid}       | Update user                 |
 | [**usersCompanies**](UsersApi.md#usersCompanies) | **GET** /users/me/companies | List current user companies |
 | [**usersMe**](UsersApi.md#usersMe)               | **GET** /users/me           | View current user details   |
@@ -158,6 +159,44 @@ accounting.users.listUsers(fields, page, perPage).then(
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+## updateMe
+
+> updateMe(name, avatar)
+
+Update current user details
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let name = "name_example"; // String |
+let avatar = null; // File |
+
+accounting.users.updateMe(name, avatar).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name       | Type                | Description | Notes      |
+| ---------- | ------------------- | ----------- | ---------- |
+| **name**   | **String**          |             | [optional] |
+| **avatar** | [**File**](File.md) |             | [optional] |
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 ## updateUser
