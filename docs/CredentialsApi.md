@@ -2,16 +2,15 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                     | HTTP request                     | Description                                                         |
-| ---------------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------- |
-| [**addCredential**](CredentialsApi.md#addCredential)       | **POST** /credentials            | Add a credential                                                    |
-| [**deleteCredential**](CredentialsApi.md#deleteCredential) | **DELETE** /credentials/{uuid}   | Delete a credential                                                 |
-| [**getCredential**](CredentialsApi.md#getCredential)       | **GET** /credentials/{uuid}      | Get a credential                                                    |
-| [**listCredentials**](CredentialsApi.md#listCredentials)   | **GET** /credentials             | List company&#39;s credentials                                      |
-| [**listPermissions**](CredentialsApi.md#listPermissions)   | **GET** /credentials/permissions | List available permissions                                          |
-| [**me**](CredentialsApi.md#me)                             | **GET** /me                      | Get current credential informations                                 |
-| [**updateCredential**](CredentialsApi.md#updateCredential) | **PUT** /credentials/{uuid}      | Update a credential                                                 |
-| [**userveria**](CredentialsApi.md#userveria)               | **POST** /userveria              | Exchange a my stantabcorp (userveria) token for an Accounting Token |
+| Method                                                     | HTTP request                     | Description                         |
+| ---------------------------------------------------------- | -------------------------------- | ----------------------------------- |
+| [**addCredential**](CredentialsApi.md#addCredential)       | **POST** /credentials            | Add a credential                    |
+| [**deleteCredential**](CredentialsApi.md#deleteCredential) | **DELETE** /credentials/{uuid}   | Delete a credential                 |
+| [**getCredential**](CredentialsApi.md#getCredential)       | **GET** /credentials/{uuid}      | Get a credential                    |
+| [**listCredentials**](CredentialsApi.md#listCredentials)   | **GET** /credentials             | List company&#39;s credentials      |
+| [**listPermissions**](CredentialsApi.md#listPermissions)   | **GET** /credentials/permissions | List available permissions          |
+| [**me**](CredentialsApi.md#me)                             | **GET** /me                      | Get current credential informations |
+| [**updateCredential**](CredentialsApi.md#updateCredential) | **PUT** /credentials/{uuid}      | Update a credential                 |
 
 ## addCredential
 
@@ -261,36 +260,4 @@ accounting.credentials.updateCredential(uuid, addCredentialRequest).then(
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-## userveria
-
-> userveria()
-
-Exchange a my stantabcorp (userveria) token for an Accounting Token
-
-### Example
-
-```javascript
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-accounting.credentials.userveria().then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-```
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json

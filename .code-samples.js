@@ -1038,20 +1038,6 @@ accounting.credentials.updateCredential(uuid, addCredentialRequest).then(
   },
 );
 
-//..userveria
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-accounting.credentials.userveria().then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-
 //..getExchangeRate
 import { Accounting } from "accountingsh";
 
