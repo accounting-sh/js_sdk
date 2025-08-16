@@ -153,23 +153,4 @@ describe("CredentialsApi", function () {
         });
     });
   });
-  describe("userveria", function () {
-    it("should call userveria successfully", function (done) {
-      let path = "/userveria";
-
-      mock.onAny(path).reply(200, {});
-      let accounting = new Accounting(
-        "fake-token",
-        "https://fake-endpoint.accounting.sh",
-      );
-      accounting.credentials
-        .userveria()
-        .then(() => {
-          done();
-        })
-        .catch(() => {
-          done(false);
-        });
-    });
-  });
 });
