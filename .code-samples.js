@@ -15,6 +15,22 @@ accounting.accountConnections.deleteAccountConnection(uuid, connection).then(
   },
 );
 
+//..importAccountTransactions
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The account UUID
+
+accounting.accountConnections.importAccountTransactions(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..listAccountConnections
 import { Accounting } from "accountingsh";
 

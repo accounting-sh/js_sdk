@@ -2,15 +2,16 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                                                            | HTTP request                                     | Description                                   |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------- |
-| [**deleteAccountConnection**](AccountConnectionsApi.md#deleteAccountConnection)                   | **DELETE** /accounts/{uuid}/connect/{connection} | Delete an account&#39;s connection            |
-| [**listAccountConnections**](AccountConnectionsApi.md#listAccountConnections)                     | **GET** /accounts/{uuid}/connect                 | List account&#39;s connections                |
-| [**listBanks**](AccountConnectionsApi.md#listBanks)                                               | **GET** /accounts/{uuid}/connect/banks           | List available bank connections               |
-| [**listConnectableBankAccounts**](AccountConnectionsApi.md#listConnectableBankAccounts)           | **GET** /accounts/{uuid}/connect/accounts        | List connectable bank accounts                |
-| [**listConnectedAccountTransactions**](AccountConnectionsApi.md#listConnectedAccountTransactions) | **GET** /accounts/{uuid}/connect/{connection}    | List the connected account&#39;s transactions |
-| [**requestBankConnection**](AccountConnectionsApi.md#requestBankConnection)                       | **POST** /accounts/{uuid}/connect/request        | Request a new bank connection                 |
-| [**selectBankAccount**](AccountConnectionsApi.md#selectBankAccount)                               | **POST** /accounts/{uuid}/connect/accounts       | Select a bank account to connect              |
+| Method                                                                                            | HTTP request                                     | Description                                                  |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| [**deleteAccountConnection**](AccountConnectionsApi.md#deleteAccountConnection)                   | **DELETE** /accounts/{uuid}/connect/{connection} | Delete an account&#39;s connection                           |
+| [**importAccountTransactions**](AccountConnectionsApi.md#importAccountTransactions)               | **POST** /accounts/{uuid}/transactions/import    | Import all available bank transaction history asynchronously |
+| [**listAccountConnections**](AccountConnectionsApi.md#listAccountConnections)                     | **GET** /accounts/{uuid}/connect                 | List account&#39;s connections                               |
+| [**listBanks**](AccountConnectionsApi.md#listBanks)                                               | **GET** /accounts/{uuid}/connect/banks           | List available bank connections                              |
+| [**listConnectableBankAccounts**](AccountConnectionsApi.md#listConnectableBankAccounts)           | **GET** /accounts/{uuid}/connect/accounts        | List connectable bank accounts                               |
+| [**listConnectedAccountTransactions**](AccountConnectionsApi.md#listConnectedAccountTransactions) | **GET** /accounts/{uuid}/connect/{connection}    | List the connected account&#39;s transactions                |
+| [**requestBankConnection**](AccountConnectionsApi.md#requestBankConnection)                       | **POST** /accounts/{uuid}/connect/request        | Request a new bank connection                                |
+| [**selectBankAccount**](AccountConnectionsApi.md#selectBankAccount)                               | **POST** /accounts/{uuid}/connect/accounts       | Select a bank account to connect                             |
 
 ## deleteAccountConnection
 
@@ -44,6 +45,44 @@ accounting.accountConnections.deleteAccountConnection(uuid, connection).then(
 | -------------- | ---------- | ------------------- | ----- |
 | **uuid**       | **String** | The account uuid    |
 | **connection** | **String** | The connection uuid |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+## importAccountTransactions
+
+> importAccountTransactions(uuid)
+
+Import all available bank transaction history asynchronously
+
+Queues an import from all linked bank accounts. A completion notification is sent using the bank transaction notification preferences.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The account UUID
+
+accounting.accountConnections.importAccountTransactions(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name     | Type       | Description      | Notes |
+| -------- | ---------- | ---------------- | ----- |
+| **uuid** | **String** | The account UUID |
 
 ### HTTP request headers
 
