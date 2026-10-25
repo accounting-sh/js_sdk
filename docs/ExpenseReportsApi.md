@@ -23,6 +23,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add an expense report
 
+Add an expense report. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;expense_report.add&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -30,7 +32,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addExpenseReportRequest = {}; // AddExpenseReportRequest |
+let addExpenseReportRequest = {}; // AddExpenseReportRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports.addExpenseReport(addExpenseReportRequest).then(
   (data) => {
@@ -44,9 +46,9 @@ accounting.expenseReports.addExpenseReport(addExpenseReportRequest).then(
 
 ### Parameters
 
-| Name                        | Type                                                      | Description | Notes |
-| --------------------------- | --------------------------------------------------------- | ----------- | ----- |
-| **addExpenseReportRequest** | [**AddExpenseReportRequest**](AddExpenseReportRequest.md) |             |
+| Name                        | Type                                                      | Description                                                                        | Notes |
+| --------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addExpenseReportRequest** | [**AddExpenseReportRequest**](AddExpenseReportRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -58,6 +60,8 @@ accounting.expenseReports.addExpenseReport(addExpenseReportRequest).then(
 > deleteExpenseReport(uuid)
 
 Delete an expense report
+
+Delete an expense report. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;expense_report.delete&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -95,6 +99,8 @@ accounting.expenseReports.deleteExpenseReport(uuid).then(
 
 OAuth Login
 
+OAuth Login. Use the parameters and response fields below for this operation.
+
 ### Example
 
 ```javascript
@@ -130,6 +136,8 @@ accounting.expenseReports.expenseReportOAuthLogin(method).then(
 > getExpenseReport(uuid)
 
 Get an expense report
+
+Get an expense report. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;expense_report.view&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -167,6 +175,8 @@ accounting.expenseReports.getExpenseReport(uuid).then(
 
 Get the currently connected expense report user details
 
+Get the currently connected expense report user details. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;expense_report.view.account&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -198,6 +208,8 @@ This endpoint does not need any parameter.
 > getExpenseReportUser(uuid)
 
 Get an user details
+
+Get an user details. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;expense_report.view.user&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -231,11 +243,11 @@ accounting.expenseReports.getExpenseReportUser(uuid).then(
 
 ## listExpenseReports
 
-> listExpenseReports(fields, page, perPage)
+> listExpenseReports(fields, page, perPage, orderBy)
 
 List company&#39;s expense reports.
 
-List company&#39;s expense reports. If the token used has the &#x60;expense_report.limited_to_self&#x60; permission, this will only list the user&#39;s expense reports
+List company&#39;s expense reports. Retrieve records using the query parameters below. Requires at least one permission: &#x60;expense_report.list&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -244,27 +256,31 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,user,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, user, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.expenseReports.listExpenseReports(fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.expenseReports
+  .listExpenseReports(fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 ```
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                           | Notes                      |
+| ----------- | ---------- | ------------------------------------------------------------------------------------- | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, user, status. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                          | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.  | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.               | [optional]                 |
 
 ### HTTP request headers
 
@@ -277,6 +293,8 @@ accounting.expenseReports.listExpenseReports(fields, page, perPage).then(
 
 Request login email
 
+Request a sign-in email for an expense report user. This action sends an email; avoid automatic retries.
+
 ### Example
 
 ```javascript
@@ -284,7 +302,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let sendExpenseReportLoginEmailRequest = {}; // SendExpenseReportLoginEmailRequest |
+let sendExpenseReportLoginEmailRequest = {}; // SendExpenseReportLoginEmailRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .sendExpenseReportLoginEmail(sendExpenseReportLoginEmailRequest)
@@ -300,9 +318,9 @@ accounting.expenseReports
 
 ### Parameters
 
-| Name                                   | Type                                                                            | Description | Notes |
-| -------------------------------------- | ------------------------------------------------------------------------------- | ----------- | ----- |
-| **sendExpenseReportLoginEmailRequest** | [**SendExpenseReportLoginEmailRequest**](SendExpenseReportLoginEmailRequest.md) |             |
+| Name                                   | Type                                                                            | Description                                                                        | Notes |
+| -------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **sendExpenseReportLoginEmailRequest** | [**SendExpenseReportLoginEmailRequest**](SendExpenseReportLoginEmailRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -315,6 +333,8 @@ accounting.expenseReports
 
 Update an expense report
 
+Update an expense report. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;expense_report.edit&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -323,7 +343,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The expense report uuid
-let addExpenseReportRequest = {}; // AddExpenseReportRequest |
+let addExpenseReportRequest = {}; // AddExpenseReportRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .updateExpenseReport(uuid, addExpenseReportRequest)
@@ -339,10 +359,10 @@ accounting.expenseReports
 
 ### Parameters
 
-| Name                        | Type                                                      | Description             | Notes |
-| --------------------------- | --------------------------------------------------------- | ----------------------- | ----- |
-| **uuid**                    | **String**                                                | The expense report uuid |
-| **addExpenseReportRequest** | [**AddExpenseReportRequest**](AddExpenseReportRequest.md) |                         |
+| Name                        | Type                                                      | Description                                                                        | Notes |
+| --------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                    | **String**                                                | The expense report uuid                                                            |
+| **addExpenseReportRequest** | [**AddExpenseReportRequest**](AddExpenseReportRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -355,6 +375,8 @@ accounting.expenseReports
 
 Update the currently connected expense report user
 
+Update the currently connected expense report user. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;expense_report.edit.account&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -362,7 +384,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let updateExpenseReportAccountRequest = {}; // UpdateExpenseReportAccountRequest |
+let updateExpenseReportAccountRequest = {}; // UpdateExpenseReportAccountRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .updateExpenseReportAccount(updateExpenseReportAccountRequest)
@@ -378,9 +400,9 @@ accounting.expenseReports
 
 ### Parameters
 
-| Name                                  | Type                                                                          | Description | Notes |
-| ------------------------------------- | ----------------------------------------------------------------------------- | ----------- | ----- |
-| **updateExpenseReportAccountRequest** | [**UpdateExpenseReportAccountRequest**](UpdateExpenseReportAccountRequest.md) |             |
+| Name                                  | Type                                                                          | Description                                                                        | Notes |
+| ------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **updateExpenseReportAccountRequest** | [**UpdateExpenseReportAccountRequest**](UpdateExpenseReportAccountRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -393,7 +415,7 @@ accounting.expenseReports
 
 Retrieve company settings for expense reports
 
-At least an url or a company must be provided
+Retrieve company settings for expense reports. Use the parameters and response fields below for this operation.
 
 ### Example
 
@@ -402,7 +424,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let updateExpenseReportSettingsRequest = {}; // UpdateExpenseReportSettingsRequest |
+let updateExpenseReportSettingsRequest = {}; // UpdateExpenseReportSettingsRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .updateExpenseReportSettings(updateExpenseReportSettingsRequest)
@@ -418,9 +440,9 @@ accounting.expenseReports
 
 ### Parameters
 
-| Name                                   | Type                                                                            | Description | Notes |
-| -------------------------------------- | ------------------------------------------------------------------------------- | ----------- | ----- |
-| **updateExpenseReportSettingsRequest** | [**UpdateExpenseReportSettingsRequest**](UpdateExpenseReportSettingsRequest.md) |             |
+| Name                                   | Type                                                                            | Description                                                                        | Notes |
+| -------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **updateExpenseReportSettingsRequest** | [**UpdateExpenseReportSettingsRequest**](UpdateExpenseReportSettingsRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -433,6 +455,8 @@ accounting.expenseReports
 
 Verify expense reports settings
 
+Verify expense reports settings. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;edit.company.settings&#x60;. Requires company feature(s): &#x60;expense_report&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -440,7 +464,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let verifyExpenseReportSettingsRequest = {}; // VerifyExpenseReportSettingsRequest |
+let verifyExpenseReportSettingsRequest = {}; // VerifyExpenseReportSettingsRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .verifyExpenseReportSettings(verifyExpenseReportSettingsRequest)
@@ -456,9 +480,9 @@ accounting.expenseReports
 
 ### Parameters
 
-| Name                                   | Type                                                                            | Description | Notes |
-| -------------------------------------- | ------------------------------------------------------------------------------- | ----------- | ----- |
-| **verifyExpenseReportSettingsRequest** | [**VerifyExpenseReportSettingsRequest**](VerifyExpenseReportSettingsRequest.md) |             |
+| Name                                   | Type                                                                            | Description                                                                        | Notes |
+| -------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **verifyExpenseReportSettingsRequest** | [**VerifyExpenseReportSettingsRequest**](VerifyExpenseReportSettingsRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

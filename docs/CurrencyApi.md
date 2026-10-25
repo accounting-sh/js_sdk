@@ -12,6 +12,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Get the latest currency exchange rate
 
+Retrieve the exchange rate for the source and destination currency codes in the URL. Requires at least one permission: &#x60;view.currency.rates&#x60;. Requires company feature(s): &#x60;api&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript

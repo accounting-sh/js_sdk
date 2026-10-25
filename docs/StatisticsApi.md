@@ -12,6 +12,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Company&#39;s summary statistics
 
+Company&#39;s summary statistics. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;view.company&#x60;.
+
 ### Example
 
 ```javascript

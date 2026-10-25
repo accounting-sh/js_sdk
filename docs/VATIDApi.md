@@ -12,9 +12,11 @@ All URIs are relative to *https://api.accounting.sh*
 
 ## addCompanyVatId
 
-> addCompanyVatId(addCompanyVatIdRequest, uuid)
+> addCompanyVatId(uuid, addCompanyVatIdRequest)
 
 Add a company&#39;s Vat Id
+
+Add a company&#39;s Vat Id. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;vat.add&#x60;.
 
 ### Example
 
@@ -23,10 +25,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest |
 let uuid = "uuid_example"; // String | The company uuid
+let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.vATID.addCompanyVatId(addCompanyVatIdRequest, uuid).then(
+accounting.vATID.addCompanyVatId(uuid, addCompanyVatIdRequest).then(
   (data) => {
     console.log(data);
   },
@@ -38,10 +40,10 @@ accounting.vATID.addCompanyVatId(addCompanyVatIdRequest, uuid).then(
 
 ### Parameters
 
-| Name                       | Type                                                    | Description      | Notes      |
-| -------------------------- | ------------------------------------------------------- | ---------------- | ---------- |
-| **addCompanyVatIdRequest** | [**AddCompanyVatIdRequest**](AddCompanyVatIdRequest.md) |                  |
-| **uuid**                   | **String**                                              | The company uuid | [optional] |
+| Name                       | Type                                                    | Description                                                                        | Notes |
+| -------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                   | **String**                                              | The company uuid                                                                   |
+| **addCompanyVatIdRequest** | [**AddCompanyVatIdRequest**](AddCompanyVatIdRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -50,9 +52,11 @@ accounting.vATID.addCompanyVatId(addCompanyVatIdRequest, uuid).then(
 
 ## deleteCompanyVatId
 
-> deleteCompanyVatId(key, uuid)
+> deleteCompanyVatId(uuid, key)
 
 Delete a company&#39;s Vat Id
+
+Delete a company&#39;s Vat Id. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;vat.delete&#x60;.
 
 ### Example
 
@@ -61,10 +65,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let key = "key_example"; // String | The VAT ID uuid
 let uuid = "uuid_example"; // String | The company uuid
+let key = "key_example"; // String | The VAT ID uuid
 
-accounting.vATID.deleteCompanyVatId(key, uuid).then(
+accounting.vATID.deleteCompanyVatId(uuid, key).then(
   (data) => {
     console.log(data);
   },
@@ -76,10 +80,10 @@ accounting.vATID.deleteCompanyVatId(key, uuid).then(
 
 ### Parameters
 
-| Name     | Type       | Description      | Notes      |
-| -------- | ---------- | ---------------- | ---------- |
+| Name     | Type       | Description      | Notes |
+| -------- | ---------- | ---------------- | ----- |
+| **uuid** | **String** | The company uuid |
 | **key**  | **String** | The VAT ID uuid  |
-| **uuid** | **String** | The company uuid | [optional] |
 
 ### HTTP request headers
 
@@ -88,9 +92,11 @@ accounting.vATID.deleteCompanyVatId(key, uuid).then(
 
 ## getCompanyVatId
 
-> getCompanyVatId(key, uuid)
+> getCompanyVatId(uuid, key)
 
 Get a company&#39;s Vat Id
+
+Get a company&#39;s Vat Id. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;vat.view&#x60;.
 
 ### Example
 
@@ -99,10 +105,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let key = "key_example"; // String | The VAT ID uuid
 let uuid = "uuid_example"; // String | The company uuid
+let key = "key_example"; // String | The VAT ID uuid
 
-accounting.vATID.getCompanyVatId(key, uuid).then(
+accounting.vATID.getCompanyVatId(uuid, key).then(
   (data) => {
     console.log(data);
   },
@@ -114,10 +120,10 @@ accounting.vATID.getCompanyVatId(key, uuid).then(
 
 ### Parameters
 
-| Name     | Type       | Description      | Notes      |
-| -------- | ---------- | ---------------- | ---------- |
+| Name     | Type       | Description      | Notes |
+| -------- | ---------- | ---------------- | ----- |
+| **uuid** | **String** | The company uuid |
 | **key**  | **String** | The VAT ID uuid  |
-| **uuid** | **String** | The company uuid | [optional] |
 
 ### HTTP request headers
 
@@ -126,9 +132,11 @@ accounting.vATID.getCompanyVatId(key, uuid).then(
 
 ## listCompanyVatId
 
-> listCompanyVatId(fields, page, perPage, uuid)
+> listCompanyVatId(uuid, fields, page, perPage, orderBy)
 
 List company&#39;s Vat Id
+
+List company&#39;s Vat Id. Retrieve records using the query parameters below. Requires at least one permission: &#x60;vat.list&#x60;.
 
 ### Example
 
@@ -137,12 +145,13 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
 let uuid = "uuid_example"; // String | The company uuid
+let fields = "uuid,vat_id,country"; // String | Comma-separated fields to include in each record. Default fields: uuid, vat_id, country.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.vATID.listCompanyVatId(fields, page, perPage, uuid).then(
+accounting.vATID.listCompanyVatId(uuid, fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -154,12 +163,13 @@ accounting.vATID.listCompanyVatId(fields, page, perPage, uuid).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
-| **uuid**    | **String** | The company uuid                                           | [optional] |
+| Name        | Type       | Description                                                                              | Notes                      |
+| ----------- | ---------- | ---------------------------------------------------------------------------------------- | -------------------------- |
+| **uuid**    | **String** | The company uuid                                                                         |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, vat_id, country. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                             | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.     | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                  | [optional]                 |
 
 ### HTTP request headers
 
@@ -168,9 +178,11 @@ accounting.vATID.listCompanyVatId(fields, page, perPage, uuid).then(
 
 ## updateCompanyVatId
 
-> updateCompanyVatId(key, addCompanyVatIdRequest, uuid)
+> updateCompanyVatId(uuid, key, addCompanyVatIdRequest)
 
 Update a company&#39;s Vat Id
+
+Update a company&#39;s Vat Id. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;vat.edit&#x60;.
 
 ### Example
 
@@ -179,11 +191,11 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let key = "key_example"; // String | The VAT ID uuid
-let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest |
 let uuid = "uuid_example"; // String | The company uuid
+let key = "key_example"; // String | The VAT ID uuid
+let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.vATID.updateCompanyVatId(key, addCompanyVatIdRequest, uuid).then(
+accounting.vATID.updateCompanyVatId(uuid, key, addCompanyVatIdRequest).then(
   (data) => {
     console.log(data);
   },
@@ -195,11 +207,11 @@ accounting.vATID.updateCompanyVatId(key, addCompanyVatIdRequest, uuid).then(
 
 ### Parameters
 
-| Name                       | Type                                                    | Description      | Notes      |
-| -------------------------- | ------------------------------------------------------- | ---------------- | ---------- |
-| **key**                    | **String**                                              | The VAT ID uuid  |
-| **addCompanyVatIdRequest** | [**AddCompanyVatIdRequest**](AddCompanyVatIdRequest.md) |                  |
-| **uuid**                   | **String**                                              | The company uuid | [optional] |
+| Name                       | Type                                                    | Description                                                                        | Notes |
+| -------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                   | **String**                                              | The company uuid                                                                   |
+| **key**                    | **String**                                              | The VAT ID uuid                                                                    |
+| **addCompanyVatIdRequest** | [**AddCompanyVatIdRequest**](AddCompanyVatIdRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

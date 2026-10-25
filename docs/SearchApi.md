@@ -12,6 +12,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Search
 
+Search indexed company resources using the supplied query. Newly saved resources may appear after indexing completes. Requires at least one permission: &#x60;search&#x60;.
+
 ### Example
 
 ```javascript

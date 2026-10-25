@@ -19,6 +19,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Delete an account&#39;s connection
 
+Delete an account&#39;s connection. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;account.connections.delete&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -57,7 +59,7 @@ accounting.accountConnections.deleteAccountConnection(uuid, connection).then(
 
 Import all available bank transaction history asynchronously
 
-Queues an import from all linked bank accounts. A completion notification is sent using the bank transaction notification preferences.
+Queue import of the available transaction history from the connected bank account. HTTP 202 acknowledges the background job; imported transactions become available through the transaction routes. Requires at least one permission: &#x60;transaction.add&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -94,6 +96,8 @@ accounting.accountConnections.importAccountTransactions(uuid).then(
 > listAccountConnections(uuid, fields, page, perPage)
 
 List account&#39;s connections
+
+List account&#39;s connections. Retrieve records using the query parameters below. Requires at least one permission: &#x60;account.connections.list&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -139,6 +143,8 @@ accounting.accountConnections
 
 List available bank connections
 
+List available bank connections. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;account.connections.banks&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -176,6 +182,8 @@ accounting.accountConnections.listBanks(uuid, country).then(
 > listConnectableBankAccounts(uuid, connection)
 
 List connectable bank accounts
+
+List connectable bank accounts. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;account.connections.banks&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -216,6 +224,8 @@ accounting.accountConnections
 > listConnectedAccountTransactions(uuid, connection, period)
 
 List the connected account&#39;s transactions
+
+List the connected account&#39;s transactions. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;account.connections.list&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -259,6 +269,8 @@ accounting.accountConnections
 
 Request a new bank connection
 
+Request a new bank connection. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;account.connections.banks&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -267,7 +279,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
-let requestBankConnectionRequest = {}; // RequestBankConnectionRequest |
+let requestBankConnectionRequest = {}; // RequestBankConnectionRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountConnections
   .requestBankConnection(uuid, requestBankConnectionRequest)
@@ -283,10 +295,10 @@ accounting.accountConnections
 
 ### Parameters
 
-| Name                             | Type                                                                | Description      | Notes |
-| -------------------------------- | ------------------------------------------------------------------- | ---------------- | ----- |
-| **uuid**                         | **String**                                                          | The account uuid |
-| **requestBankConnectionRequest** | [**RequestBankConnectionRequest**](RequestBankConnectionRequest.md) |                  |
+| Name                             | Type                                                                | Description                                                                        | Notes |
+| -------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                         | **String**                                                          | The account uuid                                                                   |
+| **requestBankConnectionRequest** | [**RequestBankConnectionRequest**](RequestBankConnectionRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -299,6 +311,8 @@ accounting.accountConnections
 
 Select a bank account to connect
 
+Select a bank account to connect. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;account.connections.banks&#x60;. Requires company feature(s): &#x60;bank_connection&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -307,7 +321,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
-let selectBankAccountRequest = {}; // SelectBankAccountRequest |
+let selectBankAccountRequest = {}; // SelectBankAccountRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountConnections
   .selectBankAccount(uuid, selectBankAccountRequest)
@@ -323,10 +337,10 @@ accounting.accountConnections
 
 ### Parameters
 
-| Name                         | Type                                                        | Description      | Notes |
-| ---------------------------- | ----------------------------------------------------------- | ---------------- | ----- |
-| **uuid**                     | **String**                                                  | The account uuid |
-| **selectBankAccountRequest** | [**SelectBankAccountRequest**](SelectBankAccountRequest.md) |                  |
+| Name                         | Type                                                        | Description                                                                        | Notes |
+| ---------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                     | **String**                                                  | The account uuid                                                                   |
+| **selectBankAccountRequest** | [**SelectBankAccountRequest**](SelectBankAccountRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

@@ -18,6 +18,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a webhook
 
+Add a webhook. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.webhook&#x60;. Requires company feature(s): &#x60;webhooks&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -25,7 +27,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addWebhookRequest = {}; // AddWebhookRequest |
+let addWebhookRequest = {}; // AddWebhookRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.webhooks.addWebhook(addWebhookRequest).then(
   (data) => {
@@ -39,9 +41,9 @@ accounting.webhooks.addWebhook(addWebhookRequest).then(
 
 ### Parameters
 
-| Name                  | Type                                          | Description | Notes |
-| --------------------- | --------------------------------------------- | ----------- | ----- |
-| **addWebhookRequest** | [**AddWebhookRequest**](AddWebhookRequest.md) |             |
+| Name                  | Type                                          | Description                                                                        | Notes |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addWebhookRequest** | [**AddWebhookRequest**](AddWebhookRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -53,6 +55,8 @@ accounting.webhooks.addWebhook(addWebhookRequest).then(
 > deleteWebhook(uuid)
 
 Delete a webhook
+
+Delete a webhook. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;delete.webhook&#x60;. Requires company feature(s): &#x60;webhooks&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -75,9 +79,9 @@ accounting.webhooks.deleteWebhook(uuid).then(
 
 ### Parameters
 
-| Name     | Type       | Description      | Notes      |
-| -------- | ---------- | ---------------- | ---------- |
-| **uuid** | **String** | The webhook uuid | [optional] |
+| Name     | Type       | Description      | Notes |
+| -------- | ---------- | ---------------- | ----- |
+| **uuid** | **String** | The webhook uuid |
 
 ### HTTP request headers
 
@@ -89,6 +93,8 @@ accounting.webhooks.deleteWebhook(uuid).then(
 > getWebhook(uuid)
 
 Get a webhook
+
+Get a webhook. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.webhook&#x60;. Requires company feature(s): &#x60;webhooks&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -111,9 +117,9 @@ accounting.webhooks.getWebhook(uuid).then(
 
 ### Parameters
 
-| Name     | Type       | Description      | Notes      |
-| -------- | ---------- | ---------------- | ---------- |
-| **uuid** | **String** | The webhook uuid | [optional] |
+| Name     | Type       | Description      | Notes |
+| -------- | ---------- | ---------------- | ----- |
+| **uuid** | **String** | The webhook uuid |
 
 ### HTTP request headers
 
@@ -125,6 +131,8 @@ accounting.webhooks.getWebhook(uuid).then(
 > getWebhookHistory(uuid)
 
 Get webhook&#39;s history
+
+Retrieve delivery history for this webhook to inspect previous attempts and troubleshoot delivery failures. Requires at least one permission: &#x60;view.webhook&#x60;. Requires company feature(s): &#x60;webhooks&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -147,9 +155,9 @@ accounting.webhooks.getWebhookHistory(uuid).then(
 
 ### Parameters
 
-| Name     | Type       | Description      | Notes      |
-| -------- | ---------- | ---------------- | ---------- |
-| **uuid** | **String** | The webhook uuid | [optional] |
+| Name     | Type       | Description      | Notes |
+| -------- | ---------- | ---------------- | ----- |
+| **uuid** | **String** | The webhook uuid |
 
 ### HTTP request headers
 
@@ -161,6 +169,8 @@ accounting.webhooks.getWebhookHistory(uuid).then(
 > listWebhookEvents()
 
 List available webhook events
+
+Retrieve event identifiers accepted when creating or updating a webhook subscription.
 
 ### Example
 
@@ -190,9 +200,11 @@ This endpoint does not need any parameter.
 
 ## listWebhooks
 
-> listWebhooks(fields, page, perPage)
+> listWebhooks(fields, page, perPage, orderBy)
 
 List company&#39;s webhooks
+
+List company&#39;s webhooks. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.webhooks&#x60;. Requires company feature(s): &#x60;webhooks&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -201,11 +213,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,link,events"; // String | Comma-separated fields to include in each record. Default fields: uuid, link, events.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.webhooks.listWebhooks(fields, page, perPage).then(
+accounting.webhooks.listWebhooks(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -217,11 +230,12 @@ accounting.webhooks.listWebhooks(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                           | Notes                      |
+| ----------- | ---------- | ------------------------------------------------------------------------------------- | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, link, events. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                          | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.  | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.               | [optional]                 |
 
 ### HTTP request headers
 
@@ -230,9 +244,11 @@ accounting.webhooks.listWebhooks(fields, page, perPage).then(
 
 ## updateWebhook
 
-> updateWebhook(addWebhookRequest, uuid)
+> updateWebhook(uuid, addWebhookRequest)
 
 Update a webhook
+
+Update a webhook. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.webhook&#x60;. Requires company feature(s): &#x60;webhooks&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -241,10 +257,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addWebhookRequest = {}; // AddWebhookRequest |
 let uuid = "uuid_example"; // String | The webhook uuid
+let addWebhookRequest = {}; // AddWebhookRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.webhooks.updateWebhook(addWebhookRequest, uuid).then(
+accounting.webhooks.updateWebhook(uuid, addWebhookRequest).then(
   (data) => {
     console.log(data);
   },
@@ -256,10 +272,10 @@ accounting.webhooks.updateWebhook(addWebhookRequest, uuid).then(
 
 ### Parameters
 
-| Name                  | Type                                          | Description      | Notes      |
-| --------------------- | --------------------------------------------- | ---------------- | ---------- |
-| **addWebhookRequest** | [**AddWebhookRequest**](AddWebhookRequest.md) |                  |
-| **uuid**              | **String**                                    | The webhook uuid | [optional] |
+| Name                  | Type                                          | Description                                                                        | Notes |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**              | **String**                                    | The webhook uuid                                                                   |
+| **addWebhookRequest** | [**AddWebhookRequest**](AddWebhookRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

@@ -19,6 +19,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a bill
 
+Add a bill. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.bill&#x60;.
+
 ### Example
 
 ```javascript
@@ -26,7 +28,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addBillRequest = {}; // AddBillRequest |
+let addBillRequest = {}; // AddBillRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.bills.addBill(addBillRequest).then(
   (data) => {
@@ -40,9 +42,9 @@ accounting.bills.addBill(addBillRequest).then(
 
 ### Parameters
 
-| Name               | Type                                    | Description | Notes |
-| ------------------ | --------------------------------------- | ----------- | ----- |
-| **addBillRequest** | [**AddBillRequest**](AddBillRequest.md) |             |
+| Name               | Type                                    | Description                                                                        | Notes |
+| ------------------ | --------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addBillRequest** | [**AddBillRequest**](AddBillRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -55,6 +57,8 @@ accounting.bills.addBill(addBillRequest).then(
 
 Add a bill payment
 
+Add a bill payment. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;add.invoice.payment&#x60;.
+
 ### Example
 
 ```javascript
@@ -63,7 +67,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The bill uuid
-let addBillPaymentRequest = {}; // AddBillPaymentRequest |
+let addBillPaymentRequest = {}; // AddBillPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.bills.addBillPayment(uuid, addBillPaymentRequest).then(
   (data) => {
@@ -77,10 +81,10 @@ accounting.bills.addBillPayment(uuid, addBillPaymentRequest).then(
 
 ### Parameters
 
-| Name                      | Type                                                  | Description   | Notes |
-| ------------------------- | ----------------------------------------------------- | ------------- | ----- |
-| **uuid**                  | **String**                                            | The bill uuid |
-| **addBillPaymentRequest** | [**AddBillPaymentRequest**](AddBillPaymentRequest.md) |               |
+| Name                      | Type                                                  | Description                                                                        | Notes |
+| ------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                  | **String**                                            | The bill uuid                                                                      |
+| **addBillPaymentRequest** | [**AddBillPaymentRequest**](AddBillPaymentRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -92,6 +96,8 @@ accounting.bills.addBillPayment(uuid, addBillPaymentRequest).then(
 > deleteBill(uuid)
 
 Delete a bill
+
+Delete a bill. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;delete.bill&#x60;.
 
 ### Example
 
@@ -129,6 +135,8 @@ accounting.bills.deleteBill(uuid).then(
 
 Get a bill
 
+Get a bill. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.bill&#x60;.
+
 ### Example
 
 ```javascript
@@ -165,7 +173,7 @@ accounting.bills.getBill(uuid).then(
 
 Get a bill in PDF
 
-This endpoint generate a bill in PDF if &#x60;selfbilling&#x60; is set to true
+Retrieve the generated PDF for this record. HTTP 200 returns application/pdf. If generation is still pending, HTTP 202 returns JSON with success&#x3D;false and an explanation; retry later. Requires at least one permission: &#x60;regenerate.invoice&#x60;.
 
 ### Example
 
@@ -199,9 +207,11 @@ accounting.bills.getBillDocument(uuid).then(
 
 ## listBills
 
-> listBills(fields, page, perPage)
+> listBills(fields, page, perPage, orderBy)
 
 List company&#39;s bills
+
+List company&#39;s bills. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.bills&#x60;.
 
 ### Example
 
@@ -210,11 +220,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,contact,bill_number,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, contact, bill_number, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.bills.listBills(fields, page, perPage).then(
+accounting.bills.listBills(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -226,11 +237,12 @@ accounting.bills.listBills(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                                           | Notes                      |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------------------- | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, contact, bill_number, status. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                          | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.                  | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                               | [optional]                 |
 
 ### HTTP request headers
 
@@ -239,9 +251,11 @@ accounting.bills.listBills(fields, page, perPage).then(
 
 ## updateBill
 
-> updateBill(uuid, addBillRequest)
+> updateBill(uuid, updateBillRequest)
 
 Update a bill
+
+Update a bill. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.bill&#x60;.
 
 ### Example
 
@@ -251,9 +265,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The bill uuid
-let addBillRequest = {}; // AddBillRequest |
+let updateBillRequest = {}; // UpdateBillRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.bills.updateBill(uuid, addBillRequest).then(
+accounting.bills.updateBill(uuid, updateBillRequest).then(
   (data) => {
     console.log(data);
   },
@@ -265,10 +279,10 @@ accounting.bills.updateBill(uuid, addBillRequest).then(
 
 ### Parameters
 
-| Name               | Type                                    | Description   | Notes |
-| ------------------ | --------------------------------------- | ------------- | ----- |
-| **uuid**           | **String**                              | The bill uuid |
-| **addBillRequest** | [**AddBillRequest**](AddBillRequest.md) |               |
+| Name                  | Type                                          | Description                                                                        | Notes |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**              | **String**                                    | The bill uuid                                                                      |
+| **updateBillRequest** | [**UpdateBillRequest**](UpdateBillRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -281,6 +295,8 @@ accounting.bills.updateBill(uuid, addBillRequest).then(
 
 Update a bill payment
 
+Update a bill payment. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.invoice.revenues&#x60;.
+
 ### Example
 
 ```javascript
@@ -290,7 +306,7 @@ let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The bill uuid
 let payment = "payment_example"; // String | The bill payment uuid
-let addBillPaymentRequest = {}; // AddBillPaymentRequest |
+let addBillPaymentRequest = {}; // AddBillPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.bills.updateBillPayment(uuid, payment, addBillPaymentRequest).then(
   (data) => {
@@ -304,11 +320,11 @@ accounting.bills.updateBillPayment(uuid, payment, addBillPaymentRequest).then(
 
 ### Parameters
 
-| Name                      | Type                                                  | Description           | Notes |
-| ------------------------- | ----------------------------------------------------- | --------------------- | ----- |
-| **uuid**                  | **String**                                            | The bill uuid         |
-| **payment**               | **String**                                            | The bill payment uuid |
-| **addBillPaymentRequest** | [**AddBillPaymentRequest**](AddBillPaymentRequest.md) |                       |
+| Name                      | Type                                                  | Description                                                                        | Notes |
+| ------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                  | **String**                                            | The bill uuid                                                                      |
+| **payment**               | **String**                                            | The bill payment uuid                                                              |
+| **addBillPaymentRequest** | [**AddBillPaymentRequest**](AddBillPaymentRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

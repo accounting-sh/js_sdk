@@ -17,6 +17,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a tag
 
+Add a tag. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.tag&#x60;.
+
 ### Example
 
 ```javascript
@@ -24,7 +26,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addTagRequest = {}; // AddTagRequest |
+let addTagRequest = {}; // AddTagRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.tags.addTag(addTagRequest).then(
   (data) => {
@@ -38,9 +40,9 @@ accounting.tags.addTag(addTagRequest).then(
 
 ### Parameters
 
-| Name              | Type                                  | Description | Notes |
-| ----------------- | ------------------------------------- | ----------- | ----- |
-| **addTagRequest** | [**AddTagRequest**](AddTagRequest.md) |             |
+| Name              | Type                                  | Description                                                                        | Notes |
+| ----------------- | ------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addTagRequest** | [**AddTagRequest**](AddTagRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -52,6 +54,8 @@ accounting.tags.addTag(addTagRequest).then(
 > deleteTag(uuid)
 
 Delete a tag
+
+Delete a tag. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;delete.tag&#x60;.
 
 ### Example
 
@@ -89,6 +93,8 @@ accounting.tags.deleteTag(uuid).then(
 
 Get a tag
 
+Get a tag. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.tag&#x60;.
+
 ### Example
 
 ```javascript
@@ -121,9 +127,11 @@ accounting.tags.getTag(uuid).then(
 
 ## listTags
 
-> listTags(fields, page, perPage)
+> listTags(fields, page, perPage, orderBy)
 
 List company&#39;s tags
+
+List company&#39;s tags. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.tags&#x60;.
 
 ### Example
 
@@ -132,11 +140,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,key,value,attached_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, key, value, attached_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.tags.listTags(fields, page, perPage).then(
+accounting.tags.listTags(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -148,11 +157,12 @@ accounting.tags.listTags(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                                      | Notes                      |
+| ----------- | ---------- | ------------------------------------------------------------------------------------------------ | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, key, value, attached_at. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                     | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.             | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                          | [optional]                 |
 
 ### HTTP request headers
 
@@ -161,9 +171,11 @@ accounting.tags.listTags(fields, page, perPage).then(
 
 ## listTagsByResource
 
-> listTagsByResource(resource, fields, page, perPage)
+> listTagsByResource(resource, fields, page, perPage, orderBy)
 
 List company&#39;s tags by resource attachment
+
+List company&#39;s tags by resource attachment. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;list.tags&#x60;.
 
 ### Example
 
@@ -173,28 +185,32 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let resource = "resource_example"; // String | The resource
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,key,value,attached_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, key, value, attached_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.tags.listTagsByResource(resource, fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.tags
+  .listTagsByResource(resource, fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 ```
 
 ### Parameters
 
-| Name         | Type       | Description                                                | Notes      |
-| ------------ | ---------- | ---------------------------------------------------------- | ---------- |
-| **resource** | **String** | The resource                                               |
-| **fields**   | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**     | **String** | The response page                                          | [optional] |
-| **perPage**  | **String** | The number of items per page                               | [optional] |
+| Name         | Type       | Description                                                                                      | Notes                      |
+| ------------ | ---------- | ------------------------------------------------------------------------------------------------ | -------------------------- |
+| **resource** | **String** | The resource                                                                                     |
+| **fields**   | **String** | Comma-separated fields to include in each record. Default fields: uuid, key, value, attached_at. | [optional]                 |
+| **page**     | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                     | [optional] [default to 1]  |
+| **perPage**  | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.             | [optional] [default to 10] |
+| **orderBy**  | **String** | Sort by a supported field and direction, using field:asc or field:desc.                          | [optional]                 |
 
 ### HTTP request headers
 
@@ -207,6 +223,8 @@ accounting.tags.listTagsByResource(resource, fields, page, perPage).then(
 
 Update a tag
 
+Update a tag. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.tag&#x60;.
+
 ### Example
 
 ```javascript
@@ -215,7 +233,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The tag uuid
-let addTagRequest = {}; // AddTagRequest |
+let addTagRequest = {}; // AddTagRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.tags.updateTag(uuid, addTagRequest).then(
   (data) => {
@@ -229,10 +247,10 @@ accounting.tags.updateTag(uuid, addTagRequest).then(
 
 ### Parameters
 
-| Name              | Type                                  | Description  | Notes |
-| ----------------- | ------------------------------------- | ------------ | ----- |
-| **uuid**          | **String**                            | The tag uuid |
-| **addTagRequest** | [**AddTagRequest**](AddTagRequest.md) |              |
+| Name              | Type                                  | Description                                                                        | Notes |
+| ----------------- | ------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**          | **String**                            | The tag uuid                                                                       |
+| **addTagRequest** | [**AddTagRequest**](AddTagRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

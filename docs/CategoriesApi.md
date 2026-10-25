@@ -16,6 +16,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a category
 
+Add a category. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.category&#x60;.
+
 ### Example
 
 ```javascript
@@ -23,7 +25,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addCategoryRequest = {}; // AddCategoryRequest |
+let addCategoryRequest = {}; // AddCategoryRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.categories.addCategory(addCategoryRequest).then(
   (data) => {
@@ -37,9 +39,9 @@ accounting.categories.addCategory(addCategoryRequest).then(
 
 ### Parameters
 
-| Name                   | Type                                            | Description | Notes |
-| ---------------------- | ----------------------------------------------- | ----------- | ----- |
-| **addCategoryRequest** | [**AddCategoryRequest**](AddCategoryRequest.md) |             |
+| Name                   | Type                                            | Description                                                                        | Notes |
+| ---------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addCategoryRequest** | [**AddCategoryRequest**](AddCategoryRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -51,6 +53,8 @@ accounting.categories.addCategory(addCategoryRequest).then(
 > deleteCategory(uuid)
 
 Delete a category
+
+Delete a category. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;delete.category&#x60;.
 
 ### Example
 
@@ -88,6 +92,8 @@ accounting.categories.deleteCategory(uuid).then(
 
 Get a category
 
+Get a category. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.category&#x60;.
+
 ### Example
 
 ```javascript
@@ -120,9 +126,11 @@ accounting.categories.getCategory(uuid).then(
 
 ## listCategories
 
-> listCategories(fields, page, perPage)
+> listCategories(fields, page, perPage, orderBy)
 
 List company&#39;s categories
+
+List company&#39;s categories. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.categories&#x60;.
 
 ### Example
 
@@ -131,11 +139,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,type,color"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, type, color.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.categories.listCategories(fields, page, perPage).then(
+accounting.categories.listCategories(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -147,11 +156,12 @@ accounting.categories.listCategories(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                                | Notes                      |
+| ----------- | ---------- | ------------------------------------------------------------------------------------------ | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, name, type, color. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                               | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.       | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                    | [optional]                 |
 
 ### HTTP request headers
 
@@ -164,6 +174,8 @@ accounting.categories.listCategories(fields, page, perPage).then(
 
 Update a category
 
+Update a category. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.category&#x60;.
+
 ### Example
 
 ```javascript
@@ -172,7 +184,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The category uuid
-let addCategoryRequest = {}; // AddCategoryRequest |
+let addCategoryRequest = {}; // AddCategoryRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.categories.updateCategory(uuid, addCategoryRequest).then(
   (data) => {
@@ -186,10 +198,10 @@ accounting.categories.updateCategory(uuid, addCategoryRequest).then(
 
 ### Parameters
 
-| Name                   | Type                                            | Description       | Notes |
-| ---------------------- | ----------------------------------------------- | ----------------- | ----- |
-| **uuid**               | **String**                                      | The category uuid |
-| **addCategoryRequest** | [**AddCategoryRequest**](AddCategoryRequest.md) |                   |
+| Name                   | Type                                            | Description                                                                        | Notes |
+| ---------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**               | **String**                                      | The category uuid                                                                  |
+| **addCategoryRequest** | [**AddCategoryRequest**](AddCategoryRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

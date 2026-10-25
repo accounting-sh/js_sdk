@@ -16,6 +16,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a payment
 
+Add a payment. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.payment&#x60;.
+
 ### Example
 
 ```javascript
@@ -23,7 +25,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addPaymentRequest = {}; // AddPaymentRequest |
+let addPaymentRequest = {}; // AddPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.payments.addPayment(addPaymentRequest).then(
   (data) => {
@@ -37,9 +39,9 @@ accounting.payments.addPayment(addPaymentRequest).then(
 
 ### Parameters
 
-| Name                  | Type                                          | Description | Notes |
-| --------------------- | --------------------------------------------- | ----------- | ----- |
-| **addPaymentRequest** | [**AddPaymentRequest**](AddPaymentRequest.md) |             |
+| Name                  | Type                                          | Description                                                                        | Notes |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addPaymentRequest** | [**AddPaymentRequest**](AddPaymentRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -51,6 +53,8 @@ accounting.payments.addPayment(addPaymentRequest).then(
 > deletePayment(uuid)
 
 Delete a payment
+
+Delete a payment. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;delete.payment&#x60;.
 
 ### Example
 
@@ -88,6 +92,8 @@ accounting.payments.deletePayment(uuid).then(
 
 Get a payment
 
+Get a payment. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.payment&#x60;.
+
 ### Example
 
 ```javascript
@@ -120,9 +126,11 @@ accounting.payments.getPayment(uuid).then(
 
 ## listPayments
 
-> listPayments(fields, page, perPage)
+> listPayments(fields, page, perPage, orderBy)
 
 List company&#39;s payments
+
+List company&#39;s payments. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.payments&#x60;.
 
 ### Example
 
@@ -131,11 +139,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,amount,currency,contact"; // String | Comma-separated fields to include in each record. Default fields: uuid, amount, currency, contact.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.payments.listPayments(fields, page, perPage).then(
+accounting.payments.listPayments(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -147,11 +156,12 @@ accounting.payments.listPayments(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                                        | Notes                      |
+| ----------- | ---------- | -------------------------------------------------------------------------------------------------- | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, amount, currency, contact. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                       | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.               | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                            | [optional]                 |
 
 ### HTTP request headers
 
@@ -164,6 +174,8 @@ accounting.payments.listPayments(fields, page, perPage).then(
 
 Update a payment
 
+Update a payment. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.payment&#x60;.
+
 ### Example
 
 ```javascript
@@ -172,7 +184,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The payment uuid
-let addPaymentRequest = {}; // AddPaymentRequest |
+let addPaymentRequest = {}; // AddPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.payments.updatePayment(uuid, addPaymentRequest).then(
   (data) => {
@@ -186,10 +198,10 @@ accounting.payments.updatePayment(uuid, addPaymentRequest).then(
 
 ### Parameters
 
-| Name                  | Type                                          | Description      | Notes |
-| --------------------- | --------------------------------------------- | ---------------- | ----- |
-| **uuid**              | **String**                                    | The payment uuid |
-| **addPaymentRequest** | [**AddPaymentRequest**](AddPaymentRequest.md) |                  |
+| Name                  | Type                                          | Description                                                                        | Notes |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**              | **String**                                    | The payment uuid                                                                   |
+| **addPaymentRequest** | [**AddPaymentRequest**](AddPaymentRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

@@ -13,6 +13,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Get the latest tax rate for a country
 
+Retrieve the tax rate reference data for the supplied country code. Requires at least one permission: &#x60;view.tax.rates&#x60;. Requires company feature(s): &#x60;api&#x60;. Returns 402 if unavailable.
+
 ### Example
 
 ```javascript
@@ -48,6 +50,8 @@ accounting.tax.getTaxRate(country).then(
 > verifyVatId(number)
 
 Verify a VAT ID
+
+Verify the supplied VAT identifier using the external verification service. Availability and returned information depend on that service. Requires at least one permission: &#x60;vat_id:verify&#x60;. Requires company feature(s): &#x60;api&#x60;. Returns 402 if unavailable.
 
 ### Example
 

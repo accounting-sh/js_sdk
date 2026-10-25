@@ -16,6 +16,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add an accounting code
 
+Add an accounting code. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;accounting_code.add&#x60;.
+
 ### Example
 
 ```javascript
@@ -23,7 +25,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addAccountingCodeRequest = {}; // AddAccountingCodeRequest |
+let addAccountingCodeRequest = {}; // AddAccountingCodeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountingCodes.addAccountingCode(addAccountingCodeRequest).then(
   (data) => {
@@ -37,9 +39,9 @@ accounting.accountingCodes.addAccountingCode(addAccountingCodeRequest).then(
 
 ### Parameters
 
-| Name                         | Type                                                        | Description | Notes |
-| ---------------------------- | ----------------------------------------------------------- | ----------- | ----- |
-| **addAccountingCodeRequest** | [**AddAccountingCodeRequest**](AddAccountingCodeRequest.md) |             |
+| Name                         | Type                                                        | Description                                                                        | Notes |
+| ---------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addAccountingCodeRequest** | [**AddAccountingCodeRequest**](AddAccountingCodeRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -51,6 +53,8 @@ accounting.accountingCodes.addAccountingCode(addAccountingCodeRequest).then(
 > deleteAccountingCode(uuid)
 
 Delete an accounting code
+
+Delete an accounting code. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;accounting_code.delete&#x60;.
 
 ### Example
 
@@ -88,6 +92,8 @@ accounting.accountingCodes.deleteAccountingCode(uuid).then(
 
 Get an accounting code
 
+Get an accounting code. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;accounting_code.view&#x60;.
+
 ### Example
 
 ```javascript
@@ -124,6 +130,8 @@ accounting.accountingCodes.getAccountingCode(uuid).then(
 
 List company&#39;s accounting code
 
+List company&#39;s accounting code. Retrieve records using the query parameters below. Requires at least one permission: &#x60;accounting_code.list&#x60;.
+
 ### Example
 
 ```javascript
@@ -156,6 +164,8 @@ This endpoint does not need any parameter.
 
 Update an accounting code
 
+Update an accounting code. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;accounting_code.edit&#x60;.
+
 ### Example
 
 ```javascript
@@ -164,7 +174,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The accounting code uuid
-let addAccountingCodeRequest = {}; // AddAccountingCodeRequest |
+let addAccountingCodeRequest = {}; // AddAccountingCodeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountingCodes
   .updateAccountingCode(uuid, addAccountingCodeRequest)
@@ -180,10 +190,10 @@ accounting.accountingCodes
 
 ### Parameters
 
-| Name                         | Type                                                        | Description              | Notes |
-| ---------------------------- | ----------------------------------------------------------- | ------------------------ | ----- |
-| **uuid**                     | **String**                                                  | The accounting code uuid |
-| **addAccountingCodeRequest** | [**AddAccountingCodeRequest**](AddAccountingCodeRequest.md) |                          |
+| Name                         | Type                                                        | Description                                                                        | Notes |
+| ---------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                     | **String**                                                  | The accounting code uuid                                                           |
+| **addAccountingCodeRequest** | [**AddAccountingCodeRequest**](AddAccountingCodeRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

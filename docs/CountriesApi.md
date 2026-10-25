@@ -12,6 +12,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Get translated list of countries
 
+Retrieve country reference data translated into the requested language.
+
 ### Example
 
 ```javascript

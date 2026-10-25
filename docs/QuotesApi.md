@@ -17,6 +17,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a quote
 
+Add a quote. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.quote&#x60;.
+
 ### Example
 
 ```javascript
@@ -24,7 +26,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addQuoteRequest = {}; // AddQuoteRequest |
+let addQuoteRequest = {}; // AddQuoteRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.quotes.addQuote(addQuoteRequest).then(
   (data) => {
@@ -38,9 +40,9 @@ accounting.quotes.addQuote(addQuoteRequest).then(
 
 ### Parameters
 
-| Name                | Type                                      | Description | Notes |
-| ------------------- | ----------------------------------------- | ----------- | ----- |
-| **addQuoteRequest** | [**AddQuoteRequest**](AddQuoteRequest.md) |             |
+| Name                | Type                                      | Description                                                                        | Notes |
+| ------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addQuoteRequest** | [**AddQuoteRequest**](AddQuoteRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -52,6 +54,8 @@ accounting.quotes.addQuote(addQuoteRequest).then(
 > deleteQuote(uuid)
 
 Delete a quote
+
+Delete a quote. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;quote.delete&#x60;.
 
 ### Example
 
@@ -89,6 +93,8 @@ accounting.quotes.deleteQuote(uuid).then(
 
 Get a quote
 
+Get a quote. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.quote&#x60;.
+
 ### Example
 
 ```javascript
@@ -125,6 +131,8 @@ accounting.quotes.getQuote(uuid).then(
 
 Get a quote in PDF
 
+Retrieve the generated PDF for this record. HTTP 200 returns application/pdf. If generation is still pending, HTTP 202 returns JSON with success&#x3D;false and an explanation; retry later. Requires at least one permission: &#x60;regenerate.quote&#x60;.
+
 ### Example
 
 ```javascript
@@ -157,9 +165,11 @@ accounting.quotes.getQuoteDocument(uuid).then(
 
 ## listQuotes
 
-> listQuotes(fields, page, perPage)
+> listQuotes(fields, page, perPage, orderBy)
 
 List company&#39;s quotes
+
+List company&#39;s quotes. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.quotes&#x60;.
 
 ### Example
 
@@ -168,11 +178,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,contact,quote_number,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, contact, quote_number, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.quotes.listQuotes(fields, page, perPage).then(
+accounting.quotes.listQuotes(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -184,11 +195,12 @@ accounting.quotes.listQuotes(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                                            | Notes                      |
+| ----------- | ---------- | ------------------------------------------------------------------------------------------------------ | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, contact, quote_number, status. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                           | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.                   | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                                | [optional]                 |
 
 ### HTTP request headers
 
@@ -197,9 +209,11 @@ accounting.quotes.listQuotes(fields, page, perPage).then(
 
 ## updateQuote
 
-> updateQuote(uuid, addQuoteRequest)
+> updateQuote(uuid, updateQuoteRequest)
 
 Update a quote
+
+Update a quote. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.quote&#x60;.
 
 ### Example
 
@@ -209,9 +223,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The quote uuid
-let addQuoteRequest = {}; // AddQuoteRequest |
+let updateQuoteRequest = {}; // UpdateQuoteRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.quotes.updateQuote(uuid, addQuoteRequest).then(
+accounting.quotes.updateQuote(uuid, updateQuoteRequest).then(
   (data) => {
     console.log(data);
   },
@@ -223,10 +237,10 @@ accounting.quotes.updateQuote(uuid, addQuoteRequest).then(
 
 ### Parameters
 
-| Name                | Type                                      | Description    | Notes |
-| ------------------- | ----------------------------------------- | -------------- | ----- |
-| **uuid**            | **String**                                | The quote uuid |
-| **addQuoteRequest** | [**AddQuoteRequest**](AddQuoteRequest.md) |                |
+| Name                   | Type                                            | Description                                                                        | Notes |
+| ---------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**               | **String**                                      | The quote uuid                                                                     |
+| **updateQuoteRequest** | [**UpdateQuoteRequest**](UpdateQuoteRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

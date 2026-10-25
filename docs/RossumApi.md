@@ -8,9 +8,11 @@ All URIs are relative to *https://api.accounting.sh*
 
 ## listReviews
 
-> listReviews(fields, page, perPage)
+> listReviews(fields, page, perPage, orderBy)
 
 List documents to be reviewed
+
+List documents to be reviewed. Use the parameters and response fields below for this operation. Requires at least one permission: &#x60;list.documents&#x60;. Requires company feature(s): &#x60;document_ia&#x60;. Returns 402 if unavailable.
 
 ### Example
 
@@ -19,11 +21,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,process_status"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, process_status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.rossum.listReviews(fields, page, perPage).then(
+accounting.rossum.listReviews(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -35,11 +38,12 @@ accounting.rossum.listReviews(fields, page, perPage).then(
 
 ### Parameters
 
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
+| Name        | Type       | Description                                                                                   | Notes                      |
+| ----------- | ---------- | --------------------------------------------------------------------------------------------- | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, name, process_status. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                  | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.          | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                       | [optional]                 |
 
 ### HTTP request headers
 

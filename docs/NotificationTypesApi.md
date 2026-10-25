@@ -16,6 +16,8 @@ All URIs are relative to *https://api.accounting.sh*
 
 Add a notification type
 
+Add a notification type. Send the resource fields in the request body; the response contains the saved record. Requires at least one permission: &#x60;add.notification_type&#x60;.
+
 ### Example
 
 ```javascript
@@ -23,7 +25,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addNotificationTypeRequest = {}; // AddNotificationTypeRequest |
+let addNotificationTypeRequest = {}; // AddNotificationTypeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.notificationTypes
   .addNotificationType(addNotificationTypeRequest)
@@ -39,9 +41,9 @@ accounting.notificationTypes
 
 ### Parameters
 
-| Name                           | Type                                                            | Description | Notes |
-| ------------------------------ | --------------------------------------------------------------- | ----------- | ----- |
-| **addNotificationTypeRequest** | [**AddNotificationTypeRequest**](AddNotificationTypeRequest.md) |             |
+| Name                           | Type                                                            | Description                                                                        | Notes |
+| ------------------------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **addNotificationTypeRequest** | [**AddNotificationTypeRequest**](AddNotificationTypeRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 
@@ -53,6 +55,8 @@ accounting.notificationTypes
 > deleteNotificationType(uuid)
 
 Delete a notification type
+
+Delete a notification type. This action deletes the selected record. Review references to it before deletion. Requires at least one permission: &#x60;delete.notification_type&#x60;.
 
 ### Example
 
@@ -90,6 +94,8 @@ accounting.notificationTypes.deleteNotificationType(uuid).then(
 
 Get a notification type
 
+Get a notification type. Use the identifier returned by the corresponding list or create operation. Requires at least one permission: &#x60;view.notification_type&#x60;.
+
 ### Example
 
 ```javascript
@@ -122,49 +128,11 @@ accounting.notificationTypes.getNotificationType(uuid).then(
 
 ## listNotificationTypes
 
-> listNotificationTypes(fields, page, perPage)
+> listNotificationTypes(fields, page, perPage, orderBy)
 
 List company&#39;s notification types
 
-### Example
-
-```javascript
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
-
-accounting.notificationTypes.listNotificationTypes(fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-```
-
-### Parameters
-
-| Name        | Type       | Description                                                | Notes      |
-| ----------- | ---------- | ---------------------------------------------------------- | ---------- |
-| **fields**  | **String** | A comma separated list of fields requested in the response | [optional] |
-| **page**    | **String** | The response page                                          | [optional] |
-| **perPage** | **String** | The number of items per page                               | [optional] |
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-## updateNotificationType
-
-> updateNotificationType(uuid, addNotificationTypeRequest)
-
-Update a notification type
+List company&#39;s notification types. Retrieve records using the query parameters below. Requires at least one permission: &#x60;list.notification_type&#x60;.
 
 ### Example
 
@@ -173,11 +141,13 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let uuid = "uuid_example"; // String | The notification type uuid
-let addNotificationTypeRequest = {}; // AddNotificationTypeRequest |
+let fields = "name,title,description,allowed_methods,internal"; // String | Comma-separated fields to include in each record. Default fields: name, title, description, allowed_methods, internal.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
 accounting.notificationTypes
-  .updateNotificationType(uuid, addNotificationTypeRequest)
+  .listNotificationTypes(fields, page, perPage, orderBy)
   .then(
     (data) => {
       console.log(data);
@@ -190,10 +160,54 @@ accounting.notificationTypes
 
 ### Parameters
 
-| Name                           | Type                                                            | Description                | Notes |
-| ------------------------------ | --------------------------------------------------------------- | -------------------------- | ----- |
-| **uuid**                       | **String**                                                      | The notification type uuid |
-| **addNotificationTypeRequest** | [**AddNotificationTypeRequest**](AddNotificationTypeRequest.md) |                            |
+| Name        | Type       | Description                                                                                                            | Notes                      |
+| ----------- | ---------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: name, title, description, allowed_methods, internal. | [optional]                 |
+| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                                           | [optional] [default to 1]  |
+| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.                                   | [optional] [default to 10] |
+| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                                                | [optional]                 |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+## updateNotificationType
+
+> updateNotificationType(uuid, updateNotificationTypeRequest)
+
+Update a notification type
+
+Update a notification type. Send the fields accepted by this operation in the request body. Requires at least one permission: &#x60;edit.notification_type&#x60;.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The notification type uuid
+let updateNotificationTypeRequest = {}; // UpdateNotificationTypeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
+
+accounting.notificationTypes
+  .updateNotificationType(uuid, updateNotificationTypeRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+```
+
+### Parameters
+
+| Name                              | Type                                                                  | Description                                                                        | Notes |
+| --------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----- |
+| **uuid**                          | **String**                                                            | The notification type uuid                                                         |
+| **updateNotificationTypeRequest** | [**UpdateNotificationTypeRequest**](UpdateNotificationTypeRequest.md) | Send a JSON object with the fields below. Fields marked required must be supplied. |
 
 ### HTTP request headers
 

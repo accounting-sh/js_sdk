@@ -114,7 +114,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
-let requestBankConnectionRequest = {}; // RequestBankConnectionRequest |
+let requestBankConnectionRequest = {}; // RequestBankConnectionRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountConnections
   .requestBankConnection(uuid, requestBankConnectionRequest)
@@ -133,7 +133,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
-let selectBankAccountRequest = {}; // SelectBankAccountRequest |
+let selectBankAccountRequest = {}; // SelectBankAccountRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountConnections
   .selectBankAccount(uuid, selectBankAccountRequest)
@@ -151,7 +151,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addAccountingCodeRequest = {}; // AddAccountingCodeRequest |
+let addAccountingCodeRequest = {}; // AddAccountingCodeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountingCodes.addAccountingCode(addAccountingCodeRequest).then(
   (data) => {
@@ -214,7 +214,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The accounting code uuid
-let addAccountingCodeRequest = {}; // AddAccountingCodeRequest |
+let addAccountingCodeRequest = {}; // AddAccountingCodeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accountingCodes
   .updateAccountingCode(uuid, addAccountingCodeRequest)
@@ -232,7 +232,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addAccountRequest = {}; // AddAccountRequest |
+let addAccountRequest = {}; // AddAccountRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accounts.addAccount(addAccountRequest).then(
   (data) => {
@@ -280,11 +280,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,bank,currency,journal_number"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, bank, currency, journal_number.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.accounts.listAccounts(fields, page, perPage).then(
+accounting.accounts.listAccounts(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -299,7 +300,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The account uuid
-let addAccountRequest = {}; // AddAccountRequest |
+let addAccountRequest = {}; // AddAccountRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.accounts.updateAccount(uuid, addAccountRequest).then(
   (data) => {
@@ -315,7 +316,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addAttachmentRequest = {}; // AddAttachmentRequest |
+let addAttachmentRequest = {}; // AddAttachmentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.attachments.addAttachment(addAttachmentRequest).then(
   (data) => {
@@ -363,11 +364,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,document,attached_to"; // String | Comma-separated fields to include in each record. Default fields: uuid, document, attached_to.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.attachments.listAttachments(fields, page, perPage).then(
+accounting.attachments.listAttachments(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -382,12 +384,13 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let resource = "resource_example"; // String | The resource
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,document,attached_to"; // String | Comma-separated fields to include in each record. Default fields: uuid, document, attached_to.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
 accounting.attachments
-  .retrieveAttachments(resource, fields, page, perPage)
+  .retrieveAttachments(resource, fields, page, perPage, orderBy)
   .then(
     (data) => {
       console.log(data);
@@ -403,7 +406,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The attachment uuid
-let addAttachmentRequest = {}; // AddAttachmentRequest |
+let addAttachmentRequest = {}; // AddAttachmentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.attachments.updateAttachment(uuid, addAttachmentRequest).then(
   (data) => {
@@ -433,9 +436,25 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let loginRequest = {}; // LoginRequest |
+let loginGetAliasRequest = {}; // LoginGetAliasRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.auth.login(loginRequest).then(
+accounting.auth.login(loginGetAliasRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..loginGetAlias
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let loginGetAliasRequest = {}; // LoginGetAliasRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
+
+accounting.auth.loginGetAlias(loginGetAliasRequest).then(
   (data) => {
     console.log(data);
   },
@@ -463,7 +482,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let switchCompanyRequest = {}; // SwitchCompanyRequest |
+let switchCompanyRequest = {}; // SwitchCompanyRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.auth.switchCompany(switchCompanyRequest).then(
   (data) => {
@@ -479,7 +498,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addBillRequest = {}; // AddBillRequest |
+let addBillRequest = {}; // AddBillRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.bills.addBill(addBillRequest).then(
   (data) => {
@@ -496,7 +515,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The bill uuid
-let addBillPaymentRequest = {}; // AddBillPaymentRequest |
+let addBillPaymentRequest = {}; // AddBillPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.bills.addBillPayment(uuid, addBillPaymentRequest).then(
   (data) => {
@@ -560,11 +579,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,contact,bill_number,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, contact, bill_number, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.bills.listBills(fields, page, perPage).then(
+accounting.bills.listBills(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -579,9 +599,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The bill uuid
-let addBillRequest = {}; // AddBillRequest |
+let updateBillRequest = {}; // UpdateBillRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.bills.updateBill(uuid, addBillRequest).then(
+accounting.bills.updateBill(uuid, updateBillRequest).then(
   (data) => {
     console.log(data);
   },
@@ -597,7 +617,7 @@ let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The bill uuid
 let payment = "payment_example"; // String | The bill payment uuid
-let addBillPaymentRequest = {}; // AddBillPaymentRequest |
+let addBillPaymentRequest = {}; // AddBillPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.bills.updateBillPayment(uuid, payment, addBillPaymentRequest).then(
   (data) => {
@@ -613,7 +633,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addCategoryRequest = {}; // AddCategoryRequest |
+let addCategoryRequest = {}; // AddCategoryRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.categories.addCategory(addCategoryRequest).then(
   (data) => {
@@ -661,11 +681,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,type,color"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, type, color.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.categories.listCategories(fields, page, perPage).then(
+accounting.categories.listCategories(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -680,7 +701,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The category uuid
-let addCategoryRequest = {}; // AddCategoryRequest |
+let addCategoryRequest = {}; // AddCategoryRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.categories.updateCategory(uuid, addCategoryRequest).then(
   (data) => {
@@ -696,7 +717,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addCompanyRequest = {}; // AddCompanyRequest |
+let addCompanyRequest = {}; // AddCompanyRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.companies.addCompany(addCompanyRequest).then(
   (data) => {
@@ -760,9 +781,25 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let uuid = "uuid_example"; // String | The company uuid
+let uuid = "uuid_example"; // String | Identifier of the authenticated company.
 
 accounting.companies.getCompanyFeatureSet(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..getCompanyOnboarding
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String | The authenticated company's UUID.
+
+accounting.companies.getCompanyOnboarding(uuid).then(
   (data) => {
     console.log(data);
   },
@@ -776,11 +813,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,currency,prefix"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, currency, prefix.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.companies.listCompanies(fields, page, perPage).then(
+accounting.companies.listCompanies(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -795,7 +833,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The company uuid
-let addCompanyRequest = {}; // AddCompanyRequest |
+let addCompanyRequest = {}; // AddCompanyRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.companies.updateCompany(uuid, addCompanyRequest).then(
   (data) => {
@@ -811,7 +849,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addContactRequest = {}; // AddContactRequest |
+let addContactRequest = {}; // AddContactRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.contacts.addContact(addContactRequest).then(
   (data) => {
@@ -860,11 +898,12 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The contact uuid
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,vendor,bill_number,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, vendor, bill_number, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.contacts.listContactBills(uuid, fields, page, perPage).then(
+accounting.contacts.listContactBills(uuid, fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -879,29 +918,33 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The contact uuid
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,customer,status,emitted"; // String | Comma-separated fields to include in each record. Default fields: uuid, customer, status, emitted.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.contacts.listContactInvoices(uuid, fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.contacts
+  .listContactInvoices(uuid, fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..listContacts
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,prefix,currency,registration_number"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, prefix, currency, registration_number. Optional buyer_type is the explicit business/consumer override; null uses automatic inference.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.contacts.listContacts(fields, page, perPage).then(
+accounting.contacts.listContacts(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -916,7 +959,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The contact uuid
-let addContactRequest = {}; // AddContactRequest |
+let addContactRequest = {}; // AddContactRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.contacts.updateContact(uuid, addContactRequest).then(
   (data) => {
@@ -948,7 +991,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addCredentialRequest = {}; // AddCredentialRequest |
+let addCredentialRequest = {}; // AddCredentialRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.credentials.addCredential(addCredentialRequest).then(
   (data) => {
@@ -996,11 +1039,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,permissions,expired_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, permissions, expired_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.credentials.listCredentials(fields, page, perPage).then(
+accounting.credentials.listCredentials(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -1043,9 +1087,106 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The credential uuid
-let addCredentialRequest = {}; // AddCredentialRequest |
+let addCredentialRequest = {}; // AddCredentialRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.credentials.updateCredential(uuid, addCredentialRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..addCreditNote
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let addCreditNoteRequest = {}; // AddCreditNoteRequest |
+
+accounting.creditNotes.addCreditNote(addCreditNoteRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..deleteCreditNote
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.creditNotes.deleteCreditNote(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..getCreditNote
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.creditNotes.getCreditNote(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..getCreditNoteDocument
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.creditNotes.getCreditNoteDocument(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..listCreditNotes
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+
+accounting.creditNotes.listCreditNotes(page, perPage).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..updateCreditNote
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.creditNotes.updateCreditNote(uuid).then(
   (data) => {
     console.log(data);
   },
@@ -1063,22 +1204,6 @@ let from = "from_example"; // String | The currency to convert from
 let to = "to_example"; // String | The currency to convert to
 
 accounting.currency.getExchangeRate(from, to).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
-
-//..cancelReview
-import { Accounting } from "accountingsh";
-
-let accounting = new Accounting("api-token");
-
-let uuid = "uuid_example"; // String | The document uuid
-
-accounting.documents.cancelReview(uuid).then(
   (data) => {
     console.log(data);
   },
@@ -1124,11 +1249,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,mimetype"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, mimetype.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.documents.listDocuments(fields, page, perPage).then(
+accounting.documents.listDocuments(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -1153,21 +1279,24 @@ accounting.documents.processDocument(uuid).then(
   },
 );
 
-//..reviewUrl
+//..reviewDocumentRetention
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let uuid = "uuid_example"; // String | The document uuid
+let uuid = "uuid_example"; // String |
+let reviewDocumentRetentionRequest = {}; // ReviewDocumentRetentionRequest |
 
-accounting.documents.reviewUrl(uuid).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.documents
+  .reviewDocumentRetention(uuid, reviewDocumentRetentionRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..updateDocument
 import { Accounting } from "accountingsh";
@@ -1175,7 +1304,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The document uuid
-let updateDocumentRequest = {}; // UpdateDocumentRequest |
+let updateDocumentRequest = {}; // UpdateDocumentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.documents.updateDocument(uuid, updateDocumentRequest).then(
   (data) => {
@@ -1191,8 +1320,8 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let name = "name_example"; // String |
-let file = null; // File |
+let name = "name_example"; // String | Human-readable name or label.
+let file = "/path/to/file"; // File | File to upload. Send this field as a file part in a multipart/form-data request.
 
 accounting.documents.uploadDocument(name, file).then(
   (data) => {
@@ -1224,7 +1353,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addExpenseReportRequest = {}; // AddExpenseReportRequest |
+let addExpenseReportRequest = {}; // AddExpenseReportRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports.addExpenseReport(addExpenseReportRequest).then(
   (data) => {
@@ -1318,25 +1447,28 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,user,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, user, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.expenseReports.listExpenseReports(fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.expenseReports
+  .listExpenseReports(fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..sendExpenseReportLoginEmail
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let sendExpenseReportLoginEmailRequest = {}; // SendExpenseReportLoginEmailRequest |
+let sendExpenseReportLoginEmailRequest = {}; // SendExpenseReportLoginEmailRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .sendExpenseReportLoginEmail(sendExpenseReportLoginEmailRequest)
@@ -1355,7 +1487,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The expense report uuid
-let addExpenseReportRequest = {}; // AddExpenseReportRequest |
+let addExpenseReportRequest = {}; // AddExpenseReportRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .updateExpenseReport(uuid, addExpenseReportRequest)
@@ -1373,7 +1505,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let updateExpenseReportAccountRequest = {}; // UpdateExpenseReportAccountRequest |
+let updateExpenseReportAccountRequest = {}; // UpdateExpenseReportAccountRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .updateExpenseReportAccount(updateExpenseReportAccountRequest)
@@ -1391,7 +1523,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let updateExpenseReportSettingsRequest = {}; // UpdateExpenseReportSettingsRequest |
+let updateExpenseReportSettingsRequest = {}; // UpdateExpenseReportSettingsRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .updateExpenseReportSettings(updateExpenseReportSettingsRequest)
@@ -1409,7 +1541,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let verifyExpenseReportSettingsRequest = {}; // VerifyExpenseReportSettingsRequest |
+let verifyExpenseReportSettingsRequest = {}; // VerifyExpenseReportSettingsRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.expenseReports
   .verifyExpenseReportSettings(verifyExpenseReportSettingsRequest)
@@ -1427,11 +1559,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,status,document,created_at,updated_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, status, document, created_at, updated_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.export.listExports(fields, page, perPage).then(
+accounting.export.listExports(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -1445,7 +1578,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let requestExportRequest = {}; // RequestExportRequest |
+let requestExportRequest = {}; // RequestExportRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.export.requestExport(requestExportRequest).then(
   (data) => {
@@ -1461,7 +1594,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addInvoiceRequest = {}; // AddInvoiceRequest |
+let addInvoiceRequest = {}; // AddInvoiceRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.invoices.addInvoice(addInvoiceRequest).then(
   (data) => {
@@ -1478,7 +1611,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The invoice uuid
-let addBillPaymentRequest = {}; // AddBillPaymentRequest |
+let addBillPaymentRequest = {}; // AddBillPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.invoices.addInvoicePayment(uuid, addBillPaymentRequest).then(
   (data) => {
@@ -1537,16 +1670,33 @@ accounting.invoices.getInvoiceDocument(uuid).then(
   },
 );
 
+//..getInvoiceIssuance
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.invoices.getInvoiceIssuance(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..listInvoices
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,contact,status,emitted"; // String | Comma-separated fields to include in each record. Default fields: uuid, contact, status, emitted.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.invoices.listInvoices(fields, page, perPage).then(
+accounting.invoices.listInvoices(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -1575,9 +1725,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The invoice uuid
-let addInvoiceRequest = {}; // AddInvoiceRequest |
+let updateInvoiceRequest = {}; // UpdateInvoiceRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.invoices.updateInvoice(uuid, addInvoiceRequest).then(
+accounting.invoices.updateInvoice(uuid, updateInvoiceRequest).then(
   (data) => {
     console.log(data);
   },
@@ -1593,10 +1743,948 @@ let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The invoice uuid
 let payment = "payment_example"; // String | The invoice payment uuid
-let addBillPaymentRequest = {}; // AddBillPaymentRequest |
+let addBillPaymentRequest = {}; // AddBillPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.invoices
   .updateInvoicePayment(uuid, payment, addBillPaymentRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalBalances
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let from = new Date("2013-10-20"); // Date |
+let to = new Date("2013-10-20"); // Date |
+let code = "code_example"; // String |
+let contact = "contact_example"; // String |
+let journal = "journal_example"; // String |
+let period = "period_example"; // String |
+let bankAccount = "bankAccount_example"; // String |
+let groupByContact = true; // Boolean |
+
+accounting.journal
+  .journalBalances(
+    from,
+    to,
+    code,
+    contact,
+    journal,
+    period,
+    bankAccount,
+    groupByContact,
+  )
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalBalancesheet
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let from = new Date("2013-10-20"); // Date |
+let to = new Date("2013-10-20"); // Date |
+let code = "code_example"; // String |
+let contact = "contact_example"; // String |
+let journal = "journal_example"; // String |
+let period = "period_example"; // String |
+let bankAccount = "bankAccount_example"; // String |
+
+accounting.journal
+  .journalBalancesheet(from, to, code, contact, journal, period, bankAccount)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalCorrectionAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalCorrectionAddRequest = {}; // JournalCorrectionAddRequest |
+
+accounting.journal.journalCorrectionAdd(journalCorrectionAddRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalCorrectionDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalCorrectionDelete(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalCorrectionDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalCorrectionDetails(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalCorrectionList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+let originalEntry = "originalEntry_example"; // String |
+
+accounting.journal.journalCorrectionList(page, perPage, originalEntry).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalCorrectionUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalCorrectionUpdate(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalEntryAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let journalEntryAddRequest = {}; // JournalEntryAddRequest |
+
+accounting.journal.journalEntryAdd(journalUuid, journalEntryAddRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalEntryDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+
+accounting.journal.journalEntryDelete(journalUuid, entryUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalEntryDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+
+accounting.journal.journalEntryDetails(journalUuid, entryUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalEntryList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let page = 56; // Number |
+let perPage = 56; // Number |
+let status = "status_example"; // String |
+let origin = "origin_example"; // String |
+let period = "period_example"; // String |
+let accountingDate = "accountingDate_example"; // String |
+let from = "from_example"; // String |
+let to = "to_example"; // String |
+let sourceType = "sourceType_example"; // String |
+let sourceUuid = "sourceUuid_example"; // String |
+let code = "code_example"; // String |
+let contact = "contact_example"; // String |
+
+accounting.journal
+  .journalEntryList(
+    journalUuid,
+    page,
+    perPage,
+    status,
+    origin,
+    period,
+    accountingDate,
+    from,
+    to,
+    sourceType,
+    sourceUuid,
+    code,
+    contact,
+  )
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalEntryUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+let journalEntryUpdateRequest = {}; // JournalEntryUpdateRequest |
+
+accounting.journal
+  .journalEntryUpdate(journalUuid, entryUuid, journalEntryUpdateRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalEvidenceAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+let journalEvidenceAddRequest = {}; // JournalEvidenceAddRequest |
+
+accounting.journal
+  .journalEvidenceAdd(journalUuid, entryUuid, journalEvidenceAddRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalEvidenceDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalEvidenceDelete(journalUuid, entryUuid, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalEvidenceDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalEvidenceDetails(journalUuid, entryUuid, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalEvidenceList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+let page = 56; // Number |
+let perPage = 56; // Number |
+
+accounting.journal
+  .journalEvidenceList(journalUuid, entryUuid, page, perPage)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalEvidenceUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let entryUuid = "entryUuid_example"; // String |
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalEvidenceUpdate(journalUuid, entryUuid, uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalExportAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalExportAddRequest = {}; // JournalExportAddRequest |
+
+accounting.journal.journalExportAdd(journalExportAddRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalExportDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalExportDelete(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalExportDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalExportDetails(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalExportList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+
+accounting.journal.journalExportList(page, perPage).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalExportUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalExportUpdate(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalInitializationAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalInitializationAddRequest = {}; // JournalInitializationAddRequest |
+
+accounting.journal
+  .journalInitializationAdd(journalInitializationAddRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalInitializationDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalInitializationDelete(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalInitializationDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalInitializationDetails(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalInitializationList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+let status = "status_example"; // String |
+
+accounting.journal.journalInitializationList(page, perPage, status).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalInitializationUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalInitializationUpdate(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalIssueAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.journal.journalIssueAdd().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalIssueDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalIssueDelete(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalIssueDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalIssueDetails(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalIssueList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+let status = "status_example"; // String |
+let sourceType = "sourceType_example"; // String |
+let sourceUuid = "sourceUuid_example"; // String |
+let event = "event_example"; // String |
+
+accounting.journal
+  .journalIssueList(page, perPage, status, sourceType, sourceUuid, event)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalIssueUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalIssueUpdate(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalJournalAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalJournalAddRequest = {}; // JournalJournalAddRequest |
+
+accounting.journal.journalJournalAdd(journalJournalAddRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalJournalDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+
+accounting.journal.journalJournalDelete(journalUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalJournalDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+
+accounting.journal.journalJournalDetails(journalUuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalJournalList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+let status = "status_example"; // String |
+let type = "type_example"; // String |
+
+accounting.journal.journalJournalList(page, perPage, status, type).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalJournalUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalUuid = "journalUuid_example"; // String |
+let journalJournalUpdateRequest = {}; // JournalJournalUpdateRequest |
+
+accounting.journal
+  .journalJournalUpdate(journalUuid, journalJournalUpdateRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalMappingAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalMappingAddRequest = {}; // JournalMappingAddRequest |
+
+accounting.journal.journalMappingAdd(journalMappingAddRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalMappingDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalMappingDelete(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalMappingDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalMappingDetails(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalMappingList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+let role = "role_example"; // String |
+let scope = "scope_example"; // String |
+let status = "status_example"; // String |
+
+accounting.journal.journalMappingList(page, perPage, role, scope, status).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalMappingUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let journalMappingUpdateRequest = {}; // JournalMappingUpdateRequest |
+
+accounting.journal.journalMappingUpdate(uuid, journalMappingUpdateRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalMovements
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let code = "code_example"; // String |
+let from = new Date("2013-10-20"); // Date |
+let to = new Date("2013-10-20"); // Date |
+let contact = "contact_example"; // String |
+let journal = "journal_example"; // String |
+let period = "period_example"; // String |
+let bankAccount = "bankAccount_example"; // String |
+let page = 56; // Number |
+let perPage = 56; // Number |
+
+accounting.journal
+  .journalMovements(
+    code,
+    from,
+    to,
+    contact,
+    journal,
+    period,
+    bankAccount,
+    page,
+    perPage,
+  )
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalPeriodAdd
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let journalPeriodAddRequest = {}; // JournalPeriodAddRequest |
+
+accounting.journal.journalPeriodAdd(journalPeriodAddRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalPeriodDelete
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalPeriodDelete(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalPeriodDetails
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.journal.journalPeriodDetails(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalPeriodList
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let perPage = 56; // Number |
+let status = "status_example"; // String |
+
+accounting.journal.journalPeriodList(page, perPage, status).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalPeriodUpdate
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let journalPeriodUpdateRequest = {}; // JournalPeriodUpdateRequest |
+
+accounting.journal.journalPeriodUpdate(uuid, journalPeriodUpdateRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..journalProfitandloss
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let from = new Date("2013-10-20"); // Date |
+let to = new Date("2013-10-20"); // Date |
+let code = "code_example"; // String |
+let contact = "contact_example"; // String |
+let journal = "journal_example"; // String |
+let period = "period_example"; // String |
+let bankAccount = "bankAccount_example"; // String |
+
+accounting.journal
+  .journalProfitandloss(from, to, code, contact, journal, period, bankAccount)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..journalTrialbalance
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let from = new Date("2013-10-20"); // Date |
+let to = new Date("2013-10-20"); // Date |
+let code = "code_example"; // String |
+let contact = "contact_example"; // String |
+let journal = "journal_example"; // String |
+let period = "period_example"; // String |
+let bankAccount = "bankAccount_example"; // String |
+
+accounting.journal
+  .journalTrialbalance(from, to, code, contact, journal, period, bankAccount)
   .then(
     (data) => {
       console.log(data);
@@ -1611,18 +2699,30 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,channel,level,message,recorded_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, channel, level, message, recorded_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
 let channel = "channel_example"; // String | The channel to retrieve the logs from
 let level = "level_example"; // String | The log level to retrieve
 let resource = "resource_example"; // String | Retrive logs linked to that resource
 let before = "before_example"; // String | Retrive logs before the provided date
 let after = "after_example"; // String | Retrive logs after the provided date
 let format = "format_example"; // String | In which format to retrieve the logs, available: json or txt
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
 accounting.logs
-  .logs(fields, page, perPage, channel, level, resource, before, after, format)
+  .logs(
+    fields,
+    page,
+    perPage,
+    channel,
+    level,
+    resource,
+    before,
+    after,
+    format,
+    orderBy,
+  )
   .then(
     (data) => {
       console.log(data);
@@ -1653,11 +2753,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,notification"; // String | Comma-separated fields to include in each record. Default fields: uuid, notification.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.notification.listNotifications(fields, page, perPage).then(
+accounting.notification.listNotifications(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -1671,7 +2772,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let sendNotificationRequest = {}; // SendNotificationRequest |
+let sendNotificationRequest = {}; // SendNotificationRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.notification.sendNotification(sendNotificationRequest).then(
   (data) => {
@@ -1688,7 +2789,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let notification = "notification_example"; // String | The notification name
-let updateNotificationPreferencesRequest = {}; // UpdateNotificationPreferencesRequest |
+let updateNotificationPreferencesRequest = {}; // UpdateNotificationPreferencesRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.notification
   .updateNotificationPreferences(
@@ -1709,7 +2810,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addNotificationTypeRequest = {}; // AddNotificationTypeRequest |
+let addNotificationTypeRequest = {}; // AddNotificationTypeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.notificationTypes
   .addNotificationType(addNotificationTypeRequest)
@@ -1759,18 +2860,21 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "name,title,description,allowed_methods,internal"; // String | Comma-separated fields to include in each record. Default fields: name, title, description, allowed_methods, internal.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.notificationTypes.listNotificationTypes(fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.notificationTypes
+  .listNotificationTypes(fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..updateNotificationType
 import { Accounting } from "accountingsh";
@@ -1778,10 +2882,10 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The notification type uuid
-let addNotificationTypeRequest = {}; // AddNotificationTypeRequest |
+let updateNotificationTypeRequest = {}; // UpdateNotificationTypeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.notificationTypes
-  .updateNotificationType(uuid, addNotificationTypeRequest)
+  .updateNotificationType(uuid, updateNotificationTypeRequest)
   .then(
     (data) => {
       console.log(data);
@@ -1796,7 +2900,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addOAuthConfigurationRequest = {}; // AddOAuthConfigurationRequest |
+let addOAuthConfigurationRequest = {}; // AddOAuthConfigurationRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.oAuthConfig.addOAuthConfiguration(addOAuthConfigurationRequest).then(
   (data) => {
@@ -1844,18 +2948,21 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,provider,client_id"; // String | Comma-separated fields to include in each record. Default fields: uuid, provider, client_id.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.oAuthConfig.listOAuthConfigurations(fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.oAuthConfig
+  .listOAuthConfigurations(fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..listProviders
 import { Accounting } from "accountingsh";
@@ -1877,7 +2984,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The oauth configuration uuid
-let addOAuthConfigurationRequest = {}; // AddOAuthConfigurationRequest |
+let addOAuthConfigurationRequest = {}; // AddOAuthConfigurationRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.oAuthConfig
   .updateOAuthConfiguration(uuid, addOAuthConfigurationRequest)
@@ -1895,7 +3002,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addPaymentRequest = {}; // AddPaymentRequest |
+let addPaymentRequest = {}; // AddPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.payments.addPayment(addPaymentRequest).then(
   (data) => {
@@ -1943,11 +3050,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,amount,currency,contact"; // String | Comma-separated fields to include in each record. Default fields: uuid, amount, currency, contact.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.payments.listPayments(fields, page, perPage).then(
+accounting.payments.listPayments(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -1962,7 +3070,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The payment uuid
-let addPaymentRequest = {}; // AddPaymentRequest |
+let addPaymentRequest = {}; // AddPaymentRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.payments.updatePayment(uuid, addPaymentRequest).then(
   (data) => {
@@ -1978,7 +3086,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addQuoteRequest = {}; // AddQuoteRequest |
+let addQuoteRequest = {}; // AddQuoteRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.quotes.addQuote(addQuoteRequest).then(
   (data) => {
@@ -2042,11 +3150,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,contact,quote_number,status"; // String | Comma-separated fields to include in each record. Default fields: uuid, contact, quote_number, status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.quotes.listQuotes(fields, page, perPage).then(
+accounting.quotes.listQuotes(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2061,9 +3170,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The quote uuid
-let addQuoteRequest = {}; // AddQuoteRequest |
+let updateQuoteRequest = {}; // UpdateQuoteRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.quotes.updateQuote(uuid, addQuoteRequest).then(
+accounting.quotes.updateQuote(uuid, updateQuoteRequest).then(
   (data) => {
     console.log(data);
   },
@@ -2077,7 +3186,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addReceiptRequest = {}; // AddReceiptRequest |
+let addReceiptRequest = {}; // AddReceiptRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.receipts.addReceipt(addReceiptRequest).then(
   (data) => {
@@ -2141,11 +3250,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,for,from,receipt_number"; // String | Comma-separated fields to include in each record. Default fields: uuid, for, from, receipt_number.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.receipts.listReceipts(fields, page, perPage).then(
+accounting.receipts.listReceipts(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2160,9 +3270,9 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The receipt uuid
-let addReceiptRequest = {}; // AddReceiptRequest |
+let updateReceiptRequest = {}; // UpdateReceiptRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.receipts.updateReceipt(uuid, addReceiptRequest).then(
+accounting.receipts.updateReceipt(uuid, updateReceiptRequest).then(
   (data) => {
     console.log(data);
   },
@@ -2176,7 +3286,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addRevenueRequest = {}; // AddRevenueRequest |
+let addRevenueRequest = {}; // AddRevenueRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.revenues.addRevenue(addRevenueRequest).then(
   (data) => {
@@ -2224,11 +3334,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,paid_at,amount,currency"; // String | Comma-separated fields to include in each record. Default fields: uuid, paid_at, amount, currency.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.revenues.listRevenues(fields, page, perPage).then(
+accounting.revenues.listRevenues(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2243,7 +3354,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The revenue uuid
-let addRevenueRequest = {}; // AddRevenueRequest |
+let addRevenueRequest = {}; // AddRevenueRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.revenues.updateRevenue(uuid, addRevenueRequest).then(
   (data) => {
@@ -2259,11 +3370,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,name,process_status"; // String | Comma-separated fields to include in each record. Default fields: uuid, name, process_status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.rossum.listReviews(fields, page, perPage).then(
+accounting.rossum.listReviews(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2312,12 +3424,13 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
 let uuid = "uuid_example"; // String | The company uuid
+let fields = "uuid,key,value"; // String | Comma-separated fields to include in each record. Default fields: uuid, key, value.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.settings.listSettings(fields, page, perPage, uuid).then(
+accounting.settings.listSettings(uuid, fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2333,7 +3446,7 @@ let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The company uuid
 let key = "key_example"; // String | The setting key
-let updateSettingsRequest = {}; // UpdateSettingsRequest |
+let updateSettingsRequest = {}; // UpdateSettingsRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.settings.updateSettings(uuid, key, updateSettingsRequest).then(
   (data) => {
@@ -2367,7 +3480,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addTagRequest = {}; // AddTagRequest |
+let addTagRequest = {}; // AddTagRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.tags.addTag(addTagRequest).then(
   (data) => {
@@ -2415,11 +3528,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,key,value,attached_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, key, value, attached_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.tags.listTags(fields, page, perPage).then(
+accounting.tags.listTags(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2434,18 +3548,21 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let resource = "resource_example"; // String | The resource
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,key,value,attached_at"; // String | Comma-separated fields to include in each record. Default fields: uuid, key, value, attached_at.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.tags.listTagsByResource(resource, fields, page, perPage).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.tags
+  .listTagsByResource(resource, fields, page, perPage, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..updateTag
 import { Accounting } from "accountingsh";
@@ -2453,7 +3570,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The tag uuid
-let addTagRequest = {}; // AddTagRequest |
+let addTagRequest = {}; // AddTagRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.tags.updateTag(uuid, addTagRequest).then(
   (data) => {
@@ -2501,10 +3618,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let listLinks200ResponseLinksInner = {}; // ListLinks200ResponseLinksInner |
 let uuid = "uuid_example"; // String | A transaction uuid
+let addLinkRequest = {}; // AddLinkRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.transactions.addLink(listLinks200ResponseLinksInner, uuid).then(
+accounting.transactions.addLink(uuid, addLinkRequest).then(
   (data) => {
     console.log(data);
   },
@@ -2518,7 +3635,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addTransactionRequest = {}; // AddTransactionRequest |
+let addTransactionRequest = {}; // AddTransactionRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transactions.addTransaction(addTransactionRequest).then(
   (data) => {
@@ -2535,10 +3652,10 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The transaction uuid
-let updateTransactionCodeRequest = {}; // UpdateTransactionCodeRequest |
+let addTransactionCodeRequest = {}; // AddTransactionCodeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transactions
-  .addTransactionCode(uuid, updateTransactionCodeRequest)
+  .addTransactionCode(uuid, addTransactionCodeRequest)
   .then(
     (data) => {
       console.log(data);
@@ -2619,7 +3736,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let importTransactionsRequest = {}; // ImportTransactionsRequest |
+let importTransactionsRequest = {}; // ImportTransactionsRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transactions.importTransactions(importTransactionsRequest).then(
   (data) => {
@@ -2635,12 +3752,13 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,account,amount,event_date"; // String | Comma-separated fields to include in each record. Default fields: uuid, account, amount, event_date.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
 let account = "account_example"; // String | An account uuid to filter results
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.transactions.ledger(fields, page, perPage, account).then(
+accounting.transactions.ledger(fields, page, perPage, account, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2654,12 +3772,13 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
 let uuid = "uuid_example"; // String | A transaction uuid
+let fields = "target_type,target,link_status"; // String | Comma-separated fields to include in each record. Default fields: target_type, target, link_status.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.transactions.listLinks(fields, page, perPage, uuid).then(
+accounting.transactions.listLinks(uuid, fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2674,13 +3793,14 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The transaction uuid
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,code,description,amount"; // String | Comma-separated fields to include in each record. Default fields: uuid, code, description, amount.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
 let account = "account_example"; // String | List to the specified account
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
 accounting.transactions
-  .listTransactionCodes(uuid, fields, page, perPage, account)
+  .listTransactionCodes(uuid, fields, page, perPage, account, orderBy)
   .then(
     (data) => {
       console.log(data);
@@ -2695,12 +3815,83 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,account,amount,transaction_date"; // String | Comma-separated fields to include in each record. Default fields: uuid, account, amount, transaction_date.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
 let account = "account_example"; // String | List to the specified account
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.transactions.listTransactions(fields, page, perPage, account).then(
+accounting.transactions
+  .listTransactions(fields, page, perPage, account, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..reconciliationReject
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let reconciliationRejectRequest = {}; // ReconciliationRejectRequest |
+
+accounting.transactions
+  .reconciliationReject(uuid, reconciliationRejectRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..reconciliationRun
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.transactions.reconciliationRun(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..reconciliationSuggestions
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.transactions.reconciliationSuggestions(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..reverseTransactionLink
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let linkUuid = "linkUuid_example"; // String |
+
+accounting.transactions.reverseTransactionLink(uuid, linkUuid).then(
   (data) => {
     console.log(data);
   },
@@ -2714,20 +3905,18 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let listLinks200ResponseLinksInner = {}; // ListLinks200ResponseLinksInner |
 let uuid = "uuid_example"; // String | A transaction uuid
 let linkUuid = "linkUuid_example"; // String | A transaction link uuid OR the target uuid
+let addLinkRequest = {}; // AddLinkRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.transactions
-  .updateLink(listLinks200ResponseLinksInner, uuid, linkUuid)
-  .then(
-    (data) => {
-      console.log(data);
-    },
-    (error) => {
-      console.error(error);
-    },
-  );
+accounting.transactions.updateLink(uuid, linkUuid, addLinkRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
 
 //..updateTransaction
 import { Accounting } from "accountingsh";
@@ -2735,7 +3924,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The transaction uuid
-let addTransactionRequest = {}; // AddTransactionRequest |
+let addTransactionRequest = {}; // AddTransactionRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transactions.updateTransaction(uuid, addTransactionRequest).then(
   (data) => {
@@ -2752,10 +3941,11 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The transaction uuid
-let updateTransactionCodeRequest = {}; // UpdateTransactionCodeRequest |
+let code = "code_example"; // String | Identifier of the code selected by this route.
+let addTransactionCodeRequest = {}; // AddTransactionCodeRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transactions
-  .updateTransactionCode(uuid, updateTransactionCodeRequest)
+  .updateTransactionCode(uuid, code, addTransactionCodeRequest)
   .then(
     (data) => {
       console.log(data);
@@ -2787,7 +3977,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addTransferRequest = {}; // AddTransferRequest |
+let addTransferRequest = {}; // AddTransferRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transfers.addTransfer(addTransferRequest).then(
   (data) => {
@@ -2835,11 +4025,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,from,to,amount"; // String | Comma-separated fields to include in each record. Default fields: uuid, from, to, amount.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.transfers.listTransfers(fields, page, perPage).then(
+accounting.transfers.listTransfers(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2854,7 +4045,7 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The transfer uuid
-let addTransferRequest = {}; // AddTransferRequest |
+let addTransferRequest = {}; // AddTransferRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.transfers.updateTransfer(uuid, addTransferRequest).then(
   (data) => {
@@ -2870,9 +4061,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addUserRequest = {}; // AddUserRequest |
-
-accounting.users.addUser(addUserRequest).then(
+accounting.users.addUser().then(
   (data) => {
     console.log(data);
   },
@@ -2918,11 +4107,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,user,permissions"; // String | Comma-separated fields to include in each record. Default fields: uuid, user, permissions.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.users.listUsers(fields, page, perPage).then(
+accounting.users.listUsers(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -2931,15 +4121,12 @@ accounting.users.listUsers(fields, page, perPage).then(
   },
 );
 
-//..updateMe
+//..updateMePutAlias
 import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let name = "name_example"; // String |
-let avatar = null; // File |
-
-accounting.users.updateMe(name, avatar).then(
+accounting.users.updateMePutAlias().then(
   (data) => {
     console.log(data);
   },
@@ -2954,9 +4141,8 @@ import { Accounting } from "accountingsh";
 let accounting = new Accounting("api-token");
 
 let uuid = "uuid_example"; // String | The user uuid
-let updateUserRequest = {}; // UpdateUserRequest |
 
-accounting.users.updateUser(uuid, updateUserRequest).then(
+accounting.users.updateUser(uuid).then(
   (data) => {
     console.log(data);
   },
@@ -2998,10 +4184,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest |
 let uuid = "uuid_example"; // String | The company uuid
+let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.vATID.addCompanyVatId(addCompanyVatIdRequest, uuid).then(
+accounting.vATID.addCompanyVatId(uuid, addCompanyVatIdRequest).then(
   (data) => {
     console.log(data);
   },
@@ -3015,10 +4201,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let key = "key_example"; // String | The VAT ID uuid
 let uuid = "uuid_example"; // String | The company uuid
+let key = "key_example"; // String | The VAT ID uuid
 
-accounting.vATID.deleteCompanyVatId(key, uuid).then(
+accounting.vATID.deleteCompanyVatId(uuid, key).then(
   (data) => {
     console.log(data);
   },
@@ -3032,10 +4218,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let key = "key_example"; // String | The VAT ID uuid
 let uuid = "uuid_example"; // String | The company uuid
+let key = "key_example"; // String | The VAT ID uuid
 
-accounting.vATID.getCompanyVatId(key, uuid).then(
+accounting.vATID.getCompanyVatId(uuid, key).then(
   (data) => {
     console.log(data);
   },
@@ -3049,12 +4235,13 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
 let uuid = "uuid_example"; // String | The company uuid
+let fields = "uuid,vat_id,country"; // String | Comma-separated fields to include in each record. Default fields: uuid, vat_id, country.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.vATID.listCompanyVatId(fields, page, perPage, uuid).then(
+accounting.vATID.listCompanyVatId(uuid, fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -3068,11 +4255,11 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let key = "key_example"; // String | The VAT ID uuid
-let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest |
 let uuid = "uuid_example"; // String | The company uuid
+let key = "key_example"; // String | The VAT ID uuid
+let addCompanyVatIdRequest = {}; // AddCompanyVatIdRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.vATID.updateCompanyVatId(key, addCompanyVatIdRequest, uuid).then(
+accounting.vATID.updateCompanyVatId(uuid, key, addCompanyVatIdRequest).then(
   (data) => {
     console.log(data);
   },
@@ -3086,7 +4273,7 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addWebhookRequest = {}; // AddWebhookRequest |
+let addWebhookRequest = {}; // AddWebhookRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
 accounting.webhooks.addWebhook(addWebhookRequest).then(
   (data) => {
@@ -3164,11 +4351,12 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let fields = "fields_example"; // String | A comma separated list of fields requested in the response
-let page = "page_example"; // String | The response page
-let perPage = "perPage_example"; // String | The number of items per page
+let fields = "uuid,link,events"; // String | Comma-separated fields to include in each record. Default fields: uuid, link, events.
+let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
+let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
+let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.webhooks.listWebhooks(fields, page, perPage).then(
+accounting.webhooks.listWebhooks(fields, page, perPage, orderBy).then(
   (data) => {
     console.log(data);
   },
@@ -3182,10 +4370,10 @@ import { Accounting } from "accountingsh";
 
 let accounting = new Accounting("api-token");
 
-let addWebhookRequest = {}; // AddWebhookRequest |
 let uuid = "uuid_example"; // String | The webhook uuid
+let addWebhookRequest = {}; // AddWebhookRequest | Send a JSON object with the fields below. Fields marked required must be supplied.
 
-accounting.webhooks.updateWebhook(addWebhookRequest, uuid).then(
+accounting.webhooks.updateWebhook(uuid, addWebhookRequest).then(
   (data) => {
     console.log(data);
   },
