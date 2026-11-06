@@ -1589,6 +1589,326 @@ accounting.export.requestExport(requestExportRequest).then(
   },
 );
 
+//..frSuperPdpApprove
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.fRSuperPDP.frSuperPdpApprove(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpAuthorize
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpAuthorize().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpCallback
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let frSuperPdpCallbackRequest = {}; // FrSuperPdpCallbackRequest |
+
+accounting.fRSuperPDP.frSuperPdpCallback(frSuperPdpCallbackRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpClassify
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let frSuperPdpClassifyRequest = {}; // FrSuperPdpClassifyRequest |
+
+accounting.fRSuperPDP.frSuperPdpClassify(uuid, frSuperPdpClassifyRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpConfigure
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let frSuperPdpConfigureRequest = {}; // FrSuperPdpConfigureRequest |
+
+accounting.fRSuperPDP.frSuperPdpConfigure(frSuperPdpConfigureRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpDisconnect
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpDisconnect().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpInbox
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let reviewStatus = "'pending'"; // String |
+
+accounting.fRSuperPDP.frSuperPdpInbox(page, reviewStatus).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpLifecycle
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let frSuperPdpLifecycleRequest = {}; // FrSuperPdpLifecycleRequest |
+
+accounting.fRSuperPDP
+  .frSuperPdpLifecycle(uuid, frSuperPdpLifecycleRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..frSuperPdpOperations
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let page = 56; // Number |
+let kind = "kind_example"; // String |
+
+accounting.fRSuperPDP.frSuperPdpOperations(page, kind).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpReceipt
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.fRSuperPDP.frSuperPdpReceipt(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpReceiptHistory
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let page = 56; // Number |
+
+accounting.fRSuperPDP.frSuperPdpReceiptHistory(uuid, page).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpReceiptPdf
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+
+accounting.fRSuperPDP.frSuperPdpReceiptPdf(uuid).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpReconcile
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let frSuperPdpReconcileRequest = {}; // FrSuperPdpReconcileRequest |
+
+accounting.fRSuperPDP
+  .frSuperPdpReconcile(uuid, frSuperPdpReconcileRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..frSuperPdpRefuse
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let frSuperPdpRefuseRequest = {}; // FrSuperPdpRefuseRequest |
+
+accounting.fRSuperPDP.frSuperPdpRefuse(uuid, frSuperPdpRefuseRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpRetry
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let uuid = "uuid_example"; // String |
+let frSuperPdpRetryRequest = new Accountingsh.FrSuperPdpRetryRequest(); // FrSuperPdpRetryRequest |
+
+accounting.fRSuperPDP.frSuperPdpRetry(uuid, frSuperPdpRetryRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpSettings
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpSettings().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpStatus
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpStatus().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpSubmit
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let frSuperPdpSubmitRequest = {}; // FrSuperPdpSubmitRequest |
+
+accounting.fRSuperPDP.frSuperPdpSubmit(frSuperPdpSubmitRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpSync
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpSync().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpVerify
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpVerify().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
 //..addInvoice
 import { Accounting } from "accountingsh";
 
@@ -3756,16 +4076,20 @@ let fields = "uuid,account,amount,event_date"; // String | Comma-separated field
 let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
 let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
 let account = "account_example"; // String | An account uuid to filter results
+let linkStatus = "linkStatus_example"; // String | all preserves the full ledger; unconfirmed includes transactions with no links or any unconfirmed link; confirmed requires a confirmed link and no unconfirmed links. Status views exclude transfers and take precedence over needs_linking.
+let needsLinking = false; // Boolean | Only transactions with no links or any unconfirmed link. Applies before pagination and to total; transfers are excluded. Default false preserves the full ledger.
 let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.transactions.ledger(fields, page, perPage, account, orderBy).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.transactions
+  .ledger(fields, page, perPage, account, linkStatus, needsLinking, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..listLinks
 import { Accounting } from "accountingsh";
@@ -3786,6 +4110,27 @@ accounting.transactions.listLinks(uuid, fields, page, perPage, orderBy).then(
     console.error(error);
   },
 );
+
+//..listPendingDocumentLinks
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let targetType = "targetType_example"; // String |
+let target = "target_example"; // String |
+let page = 1; // Number |
+let perPage = 10; // Number | Capped at the standard API page size limit.
+
+accounting.transactions
+  .listPendingDocumentLinks(targetType, target, page, perPage)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 
 //..listTransactionCodes
 import { Accounting } from "accountingsh";

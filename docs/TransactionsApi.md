@@ -14,6 +14,7 @@ All URIs are relative to *https://api.accounting.sh*
 | [**importTransactions**](TransactionsApi.md#importTransactions)               | **POST** /transactions/import                           | Import transactions - INTERNAL                            |
 | [**ledger**](TransactionsApi.md#ledger)                                       | **GET** /transactions/ledger                            | List company&#39;s transactions and transfers             |
 | [**listLinks**](TransactionsApi.md#listLinks)                                 | **GET** /transactions/{uuid}/links                      | List a transaction links                                  |
+| [**listPendingDocumentLinks**](TransactionsApi.md#listPendingDocumentLinks)   | **GET** /transactions/pending-links                     | List pending transaction links for a document             |
 | [**listTransactionCodes**](TransactionsApi.md#listTransactionCodes)           | **GET** /transactions/{uuid}/codes                      | List transaction&#39;s codes                              |
 | [**listTransactions**](TransactionsApi.md#listTransactions)                   | **GET** /transactions                                   | List company&#39;s transactions                           |
 | [**reconciliationReject**](TransactionsApi.md#reconciliationReject)           | **POST** /transactions/{uuid}/reconciliation/rejections | Remember a rejected transaction/document candidate        |
@@ -341,11 +342,11 @@ accounting.transactions.importTransactions(importTransactionsRequest).then(
 
 ## ledger
 
-> ledger(fields, page, perPage, account, orderBy)
+> ledger(fields, page, perPage, account, linkStatus, needsLinking, orderBy)
 
 List company&#39;s transactions and transfers
 
-Retrieve ledger entries combining transactions and transfers. Optionally filter by the account query parameter. Requires at least one permission: &#x60;transaction.list&#x60;, &#x60;list.transfers&#x60;.
+Retrieve ledger entries combining transactions and transfers. Optionally filter by account, link_status and the legacy needs_linking flag. The needs_linking filter includes only transactions with no links or at least one unconfirmed link; transfers are excluded. Requires at least one permission: &#x60;transaction.list&#x60;, &#x60;list.transfers&#x60;.
 
 ### Example
 
@@ -358,27 +359,33 @@ let fields = "uuid,account,amount,event_date"; // String | Comma-separated field
 let page = 1; // Number | Page number, starting at 1. Values below 1 are treated as 1.
 let perPage = 10; // Number | Records per page. The server caps page size to 100. Values below 1 use that maximum.
 let account = "account_example"; // String | An account uuid to filter results
+let linkStatus = "linkStatus_example"; // String | all preserves the full ledger; unconfirmed includes transactions with no links or any unconfirmed link; confirmed requires a confirmed link and no unconfirmed links. Status views exclude transfers and take precedence over needs_linking.
+let needsLinking = false; // Boolean | Only transactions with no links or any unconfirmed link. Applies before pagination and to total; transfers are excluded. Default false preserves the full ledger.
 let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
-accounting.transactions.ledger(fields, page, perPage, account, orderBy).then(
-  (data) => {
-    console.log(data);
-  },
-  (error) => {
-    console.error(error);
-  },
-);
+accounting.transactions
+  .ledger(fields, page, perPage, account, linkStatus, needsLinking, orderBy)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
 ```
 
 ### Parameters
 
-| Name        | Type       | Description                                                                                          | Notes                      |
-| ----------- | ---------- | ---------------------------------------------------------------------------------------------------- | -------------------------- |
-| **fields**  | **String** | Comma-separated fields to include in each record. Default fields: uuid, account, amount, event_date. | [optional]                 |
-| **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                         | [optional] [default to 1]  |
-| **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.                 | [optional] [default to 10] |
-| **account** | **String** | An account uuid to filter results                                                                    | [optional]                 |
-| **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                              | [optional]                 |
+| Name             | Type        | Description                                                                                                                                                                                                                                  | Notes                         |
+| ---------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| **fields**       | **String**  | Comma-separated fields to include in each record. Default fields: uuid, account, amount, event_date.                                                                                                                                         | [optional]                    |
+| **page**         | **Number**  | Page number, starting at 1. Values below 1 are treated as 1.                                                                                                                                                                                 | [optional] [default to 1]     |
+| **perPage**      | **Number**  | Records per page. The server caps page size to 100. Values below 1 use that maximum.                                                                                                                                                         | [optional] [default to 10]    |
+| **account**      | **String**  | An account uuid to filter results                                                                                                                                                                                                            | [optional]                    |
+| **linkStatus**   | **String**  | all preserves the full ledger; unconfirmed includes transactions with no links or any unconfirmed link; confirmed requires a confirmed link and no unconfirmed links. Status views exclude transfers and take precedence over needs_linking. | [optional]                    |
+| **needsLinking** | **Boolean** | Only transactions with no links or any unconfirmed link. Applies before pagination and to total; transfers are excluded. Default false preserves the full ledger.                                                                            | [optional] [default to false] |
+| **orderBy**      | **String**  | Sort by a supported field and direction, using field:asc or field:desc.                                                                                                                                                                      | [optional]                    |
 
 ### HTTP request headers
 
@@ -425,6 +432,52 @@ accounting.transactions.listLinks(uuid, fields, page, perPage, orderBy).then(
 | **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                        | [optional] [default to 1]  |
 | **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.                | [optional] [default to 10] |
 | **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                             | [optional]                 |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+## listPendingDocumentLinks
+
+> listPendingDocumentLinks(targetType, target, page, perPage)
+
+List pending transaction links for a document
+
+List unconfirmed, unprocessed links for a company-owned document. Requires &#x60;transaction_link.list&#x60;, &#x60;transaction.view&#x60; and the target viewing permission. Confirmation uses the existing transaction link PUT endpoint.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let targetType = "targetType_example"; // String |
+let target = "target_example"; // String |
+let page = 1; // Number |
+let perPage = 10; // Number | Capped at the standard API page size limit.
+
+accounting.transactions
+  .listPendingDocumentLinks(targetType, target, page, perPage)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+```
+
+### Parameters
+
+| Name           | Type       | Description                                 | Notes                      |
+| -------------- | ---------- | ------------------------------------------- | -------------------------- |
+| **targetType** | **String** |                                             |
+| **target**     | **String** |                                             |
+| **page**       | **Number** |                                             | [optional] [default to 1]  |
+| **perPage**    | **Number** | Capped at the standard API page size limit. | [optional] [default to 10] |
 
 ### HTTP request headers
 
