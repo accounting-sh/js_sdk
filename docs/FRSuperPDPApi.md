@@ -2,28 +2,71 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                                    | HTTP request                                          | Description                        |
-| ------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------------- |
-| [**frSuperPdpApprove**](FRSuperPDPApi.md#frSuperPdpApprove)               | **PUT** /fr/superpdp/inbox/{uuid}/approve             | Approve a received invoice         |
-| [**frSuperPdpAuthorize**](FRSuperPDPApi.md#frSuperPdpAuthorize)           | **POST** /fr/superpdp/authorize                       | Create a SuperPDP consent URL      |
-| [**frSuperPdpCallback**](FRSuperPDPApi.md#frSuperPdpCallback)             | **POST** /fr/superpdp/callback                        | Complete SuperPDP consent          |
-| [**frSuperPdpClassify**](FRSuperPDPApi.md#frSuperPdpClassify)             | **PUT** /fr/superpdp/operations/{uuid}/classification | Classify reporting lines           |
-| [**frSuperPdpConfigure**](FRSuperPDPApi.md#frSuperPdpConfigure)           | **PUT** /fr/superpdp/settings                         | Configure SuperPDP synchronization |
-| [**frSuperPdpDisconnect**](FRSuperPDPApi.md#frSuperPdpDisconnect)         | **DELETE** /fr/superpdp                               | Disconnect SuperPDP                |
-| [**frSuperPdpInbox**](FRSuperPDPApi.md#frSuperPdpInbox)                   | **GET** /fr/superpdp/inbox                            | List received invoices             |
-| [**frSuperPdpLifecycle**](FRSuperPDPApi.md#frSuperPdpLifecycle)           | **POST** /fr/superpdp/operations/{uuid}/events        | Queue a buyer lifecycle event      |
-| [**frSuperPdpOperations**](FRSuperPDPApi.md#frSuperPdpOperations)         | **GET** /fr/superpdp/operations                       | List SuperPDP operations           |
-| [**frSuperPdpReceipt**](FRSuperPDPApi.md#frSuperPdpReceipt)               | **GET** /fr/superpdp/inbox/{uuid}                     | Get a received invoice             |
-| [**frSuperPdpReceiptHistory**](FRSuperPDPApi.md#frSuperPdpReceiptHistory) | **GET** /fr/superpdp/inbox/{uuid}/history             | Get received invoice history       |
-| [**frSuperPdpReceiptPdf**](FRSuperPDPApi.md#frSuperPdpReceiptPdf)         | **GET** /fr/superpdp/inbox/{uuid}/pdf                 | Get a received invoice PDF         |
-| [**frSuperPdpReconcile**](FRSuperPDPApi.md#frSuperPdpReconcile)           | **PUT** /fr/superpdp/operations/{uuid}/reconcile      | Reconcile a reporting submission   |
-| [**frSuperPdpRefuse**](FRSuperPDPApi.md#frSuperPdpRefuse)                 | **PUT** /fr/superpdp/inbox/{uuid}/refuse              | Refuse a received invoice          |
-| [**frSuperPdpRetry**](FRSuperPDPApi.md#frSuperPdpRetry)                   | **PUT** /fr/superpdp/operations/{uuid}/retry          | Retry a SuperPDP operation         |
-| [**frSuperPdpSettings**](FRSuperPDPApi.md#frSuperPdpSettings)             | **GET** /fr/superpdp/settings                         | Get SuperPDP settings              |
-| [**frSuperPdpStatus**](FRSuperPDPApi.md#frSuperPdpStatus)                 | **GET** /fr/superpdp                                  | Get SuperPDP connection status     |
-| [**frSuperPdpSubmit**](FRSuperPDPApi.md#frSuperPdpSubmit)                 | **POST** /fr/superpdp/submit                          | Submit an issued invoice           |
-| [**frSuperPdpSync**](FRSuperPDPApi.md#frSuperPdpSync)                     | **POST** /fr/superpdp/sync                            | Queue SuperPDP synchronization     |
-| [**frSuperPdpVerify**](FRSuperPDPApi.md#frSuperPdpVerify)                 | **POST** /fr/superpdp/verify                          | Queue SuperPDP verification        |
+| Method                                                                      | HTTP request                                          | Description                          |
+| --------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------ |
+| [**frSuperPdpAddDirectory**](FRSuperPDPApi.md#frSuperPdpAddDirectory)       | **POST** /fr/superpdp/directory                       | Queue a SuperPDP directory line      |
+| [**frSuperPdpApprove**](FRSuperPDPApi.md#frSuperPdpApprove)                 | **PUT** /fr/superpdp/inbox/{uuid}/approve             | Approve a received invoice           |
+| [**frSuperPdpAuthorize**](FRSuperPDPApi.md#frSuperPdpAuthorize)             | **POST** /fr/superpdp/authorize                       | Create a SuperPDP consent URL        |
+| [**frSuperPdpCallback**](FRSuperPDPApi.md#frSuperPdpCallback)               | **POST** /fr/superpdp/callback                        | Complete SuperPDP consent            |
+| [**frSuperPdpClassify**](FRSuperPDPApi.md#frSuperPdpClassify)               | **PUT** /fr/superpdp/operations/{uuid}/classification | Classify reporting lines             |
+| [**frSuperPdpConfigure**](FRSuperPDPApi.md#frSuperPdpConfigure)             | **PUT** /fr/superpdp/settings                         | Configure SuperPDP synchronization   |
+| [**frSuperPdpDeleteDirectory**](FRSuperPDPApi.md#frSuperPdpDeleteDirectory) | **DELETE** /fr/superpdp/directory/{identifier}        | Disable a SuperPDP directory line    |
+| [**frSuperPdpDirectory**](FRSuperPDPApi.md#frSuperPdpDirectory)             | **GET** /fr/superpdp/directory                        | List cached SuperPDP directory lines |
+| [**frSuperPdpDisconnect**](FRSuperPDPApi.md#frSuperPdpDisconnect)           | **DELETE** /fr/superpdp                               | Disconnect SuperPDP                  |
+| [**frSuperPdpInbox**](FRSuperPDPApi.md#frSuperPdpInbox)                     | **GET** /fr/superpdp/inbox                            | List received invoices               |
+| [**frSuperPdpLifecycle**](FRSuperPDPApi.md#frSuperPdpLifecycle)             | **POST** /fr/superpdp/operations/{uuid}/events        | Queue a buyer lifecycle event        |
+| [**frSuperPdpOperations**](FRSuperPDPApi.md#frSuperPdpOperations)           | **GET** /fr/superpdp/operations                       | List SuperPDP operations             |
+| [**frSuperPdpReceipt**](FRSuperPDPApi.md#frSuperPdpReceipt)                 | **GET** /fr/superpdp/inbox/{uuid}                     | Get a received invoice               |
+| [**frSuperPdpReceiptHistory**](FRSuperPDPApi.md#frSuperPdpReceiptHistory)   | **GET** /fr/superpdp/inbox/{uuid}/history             | Get received invoice history         |
+| [**frSuperPdpReceiptPdf**](FRSuperPDPApi.md#frSuperPdpReceiptPdf)           | **GET** /fr/superpdp/inbox/{uuid}/pdf                 | Get a received invoice PDF           |
+| [**frSuperPdpReconcile**](FRSuperPDPApi.md#frSuperPdpReconcile)             | **PUT** /fr/superpdp/operations/{uuid}/reconcile      | Reconcile a reporting submission     |
+| [**frSuperPdpRefuse**](FRSuperPDPApi.md#frSuperPdpRefuse)                   | **PUT** /fr/superpdp/inbox/{uuid}/refuse              | Refuse a received invoice            |
+| [**frSuperPdpRetry**](FRSuperPDPApi.md#frSuperPdpRetry)                     | **PUT** /fr/superpdp/operations/{uuid}/retry          | Retry a SuperPDP operation           |
+| [**frSuperPdpSettings**](FRSuperPDPApi.md#frSuperPdpSettings)               | **GET** /fr/superpdp/settings                         | Get SuperPDP settings                |
+| [**frSuperPdpStatus**](FRSuperPDPApi.md#frSuperPdpStatus)                   | **GET** /fr/superpdp                                  | Get SuperPDP connection status       |
+| [**frSuperPdpSubmit**](FRSuperPDPApi.md#frSuperPdpSubmit)                   | **POST** /fr/superpdp/submit                          | Submit an issued invoice             |
+| [**frSuperPdpSync**](FRSuperPDPApi.md#frSuperPdpSync)                       | **POST** /fr/superpdp/sync                            | Queue SuperPDP synchronization       |
+| [**frSuperPdpVerify**](FRSuperPDPApi.md#frSuperPdpVerify)                   | **POST** /fr/superpdp/verify                          | Queue SuperPDP verification          |
+
+## frSuperPdpAddDirectory
+
+> frSuperPdpAddDirectory(frSuperPdpAddDirectoryRequest)
+
+Queue a SuperPDP directory line
+
+Queue a SuperPDP directory line; provider requests execute asynchronously. Requires the &#x60;edit.company&#x60; permission and the &#x60;einvoicing&#x60; company feature.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let frSuperPdpAddDirectoryRequest = {}; // FrSuperPdpAddDirectoryRequest |
+
+accounting.fRSuperPDP
+  .frSuperPdpAddDirectory(frSuperPdpAddDirectoryRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+```
+
+### Parameters
+
+| Name                              | Type                                                                  | Description | Notes |
+| --------------------------------- | --------------------------------------------------------------------- | ----------- | ----- |
+| **frSuperPdpAddDirectoryRequest** | [**FrSuperPdpAddDirectoryRequest**](FrSuperPdpAddDirectoryRequest.md) |             |
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 ## frSuperPdpApprove
 
@@ -211,6 +254,78 @@ accounting.fRSuperPDP.frSuperPdpConfigure(frSuperPdpConfigureRequest).then(
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: Not defined
+
+## frSuperPdpDeleteDirectory
+
+> frSuperPdpDeleteDirectory(identifier)
+
+Disable a SuperPDP directory line
+
+Disable a SuperPDP directory line; provider requests execute asynchronously. Requires the &#x60;edit.company&#x60; permission and the &#x60;einvoicing&#x60; company feature.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let identifier = "identifier_example"; // String |
+
+accounting.fRSuperPDP.frSuperPdpDeleteDirectory(identifier).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name           | Type       | Description | Notes |
+| -------------- | ---------- | ----------- | ----- |
+| **identifier** | **String** |             |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+## frSuperPdpDirectory
+
+> frSuperPdpDirectory()
+
+List cached SuperPDP directory lines
+
+List cached SuperPDP directory lines; provider requests execute asynchronously. Requires the &#x60;view.company&#x60; permission and the &#x60;einvoicing&#x60; company feature.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpDirectory().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 ## frSuperPdpDisconnect

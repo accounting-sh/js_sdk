@@ -1,6 +1,6 @@
 {
   "name": "accountingsh",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Accounting.sh SDK",
   "main": "src/index.js",
   "repository": {
@@ -18,12 +18,18 @@
   "author": "STAN-TAB CORP. LTD <support@stantabcorp.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^1.20.0"
+    "axios": "^1.21.1"
   },
   "devDependencies": {
     "axios-mock-adapter": "^2.1.0",
-    "mocha": "^12.0.2",
-    "prettier": "^3.9.9"
+    "mocha": "^12.0.3",
+    "prettier": "^3.10.1"
+  },
+  "overrides": {
+    "mocha": {
+      "glob": "^14.0.6",
+      "minimatch": "^11.0.8"
+    }
   },
   "type": "module"
 }

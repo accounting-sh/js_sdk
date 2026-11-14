@@ -2,16 +2,17 @@
 
 All URIs are relative to *https://api.accounting.sh*
 
-| Method                                                                 | HTTP request                            | Description                                      |
-| ---------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------ |
-| [**addCompany**](CompaniesApi.md#addCompany)                           | **POST** /companies                     | Add a company (resellers only)                   |
-| [**deleteCompany**](CompaniesApi.md#deleteCompany)                     | **DELETE** /companies/{uuid}            | Delete a company                                 |
-| [**getCompany**](CompaniesApi.md#getCompany)                           | **GET** /companies/{uuid}               | Get a company                                    |
-| [**getCompanyCustomization**](CompaniesApi.md#getCompanyCustomization) | **GET** /companies/{uuid}/customization | Get a company&#39;s customization parameters     |
-| [**getCompanyFeatureSet**](CompaniesApi.md#getCompanyFeatureSet)       | **GET** /companies/{uuid}/features      | List a company&#39;s feature set                 |
-| [**getCompanyOnboarding**](CompaniesApi.md#getCompanyOnboarding)       | **GET** /companies/{uuid}/onboarding    | Get company onboarding status                    |
-| [**listCompanies**](CompaniesApi.md#listCompanies)                     | **GET** /companies                      | List companies on this instance (resellers only) |
-| [**updateCompany**](CompaniesApi.md#updateCompany)                     | **PUT** /companies/{uuid}               | Update a company                                 |
+| Method                                                                 | HTTP request                                 | Description                                      |
+| ---------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------ |
+| [**addCompany**](CompaniesApi.md#addCompany)                           | **POST** /companies                          | Add a company (resellers only)                   |
+| [**deleteCompany**](CompaniesApi.md#deleteCompany)                     | **DELETE** /companies/{uuid}                 | Delete a company                                 |
+| [**getCompany**](CompaniesApi.md#getCompany)                           | **GET** /companies/{uuid}                    | Get a company                                    |
+| [**getCompanyCustomization**](CompaniesApi.md#getCompanyCustomization) | **GET** /companies/{uuid}/customization      | Get a company&#39;s customization parameters     |
+| [**getCompanyFeatureSet**](CompaniesApi.md#getCompanyFeatureSet)       | **GET** /companies/{uuid}/features           | List a company&#39;s feature set                 |
+| [**getCompanyOnboarding**](CompaniesApi.md#getCompanyOnboarding)       | **GET** /companies/{uuid}/onboarding         | Get company onboarding status                    |
+| [**listCompanies**](CompaniesApi.md#listCompanies)                     | **GET** /companies                           | List companies on this instance (resellers only) |
+| [**searchCompanyRegistries**](CompaniesApi.md#searchCompanyRegistries) | **GET** /company-registries/{country}/search | Search public company registries for autofill    |
+| [**updateCompany**](CompaniesApi.md#updateCompany)                     | **PUT** /companies/{uuid}                    | Update a company                                 |
 
 ## addCompany
 
@@ -279,6 +280,46 @@ accounting.companies.listCompanies(fields, page, perPage, orderBy).then(
 | **page**    | **Number** | Page number, starting at 1. Values below 1 are treated as 1.                                    | [optional] [default to 1]  |
 | **perPage** | **Number** | Records per page. The server caps page size to 100. Values below 1 use that maximum.            | [optional] [default to 10] |
 | **orderBy** | **String** | Sort by a supported field and direction, using field:asc or field:desc.                         | [optional]                 |
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+## searchCompanyRegistries
+
+> searchCompanyRegistries(country, q)
+
+Search public company registries for autofill
+
+Public onboarding autocomplete. Country FR or GB is required. Case-insensitive literal name prefixes or registration-number prefixes, minimum 3 characters. Returns up to 10 unsorted matches and has_more; narrow the query rather than paginate. French restricted-diffusion records are excluded. Missing facts are null. Uses imported snapshots, not live registry calls.
+
+### Example
+
+```javascript
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let country = "country_example"; // String |
+let q = "q_example"; // String |
+
+accounting.companies.searchCompanyRegistries(country, q).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+```
+
+### Parameters
+
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **country** | **String** |             |
+| **q**       | **String** |             |
 
 ### HTTP request headers
 

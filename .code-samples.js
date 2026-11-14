@@ -311,6 +311,66 @@ accounting.accounts.updateAccount(uuid, addAccountRequest).then(
   },
 );
 
+//..analyticsCards
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let group = "group_example"; // String | Select a related statistics-card group. See GET /analytics for available group metadata.
+let start = new Date("2013-10-20"); // Date | Inclusive first activity date in YYYY-MM-DD format.
+let end = new Date("2013-10-20"); // Date | Inclusive last activity date; also the balance as-of date where applicable.
+let interval = "'month'"; // String | Calendar bucket for time-series graphs.
+let limit = 10; // Number | Maximum ranked categories where the graph supports a limit.
+let currency = "currency_example"; // String | Optional ISO 4217 currency filter; does not request arbitrary currency conversion.
+
+accounting.analytics
+  .analyticsCards(group, start, end, interval, limit, currency)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
+//..analyticsCatalog
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.analytics.analyticsCatalog().then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..analyticsGraph
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let graph = "graph_example"; // String | Select one of the implemented graph identifiers. See GET /analytics for localized titles, metric IDs, bases and feature requirements.
+let start = new Date("2013-10-20"); // Date | Inclusive first activity date in YYYY-MM-DD format.
+let end = new Date("2013-10-20"); // Date | Inclusive last activity date; also the balance as-of date where applicable.
+let interval = "'month'"; // String | Calendar bucket for time-series graphs.
+let limit = 10; // Number | Maximum ranked categories where the graph supports a limit.
+let currency = "currency_example"; // String | Optional ISO 4217 currency filter; does not request arbitrary currency conversion.
+
+accounting.analytics
+  .analyticsGraph(graph, start, end, interval, limit, currency)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
 //..addAttachment
 import { Accounting } from "accountingsh";
 
@@ -819,6 +879,23 @@ let perPage = 10; // Number | Records per page. The server caps page size to 100
 let orderBy = "created_at:desc"; // String | Sort by a supported field and direction, using field:asc or field:desc.
 
 accounting.companies.listCompanies(fields, page, perPage, orderBy).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..searchCompanyRegistries
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let country = "country_example"; // String |
+let q = "q_example"; // String |
+
+accounting.companies.searchCompanyRegistries(country, q).then(
   (data) => {
     console.log(data);
   },
@@ -1589,6 +1666,24 @@ accounting.export.requestExport(requestExportRequest).then(
   },
 );
 
+//..frSuperPdpAddDirectory
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let frSuperPdpAddDirectoryRequest = {}; // FrSuperPdpAddDirectoryRequest |
+
+accounting.fRSuperPDP
+  .frSuperPdpAddDirectory(frSuperPdpAddDirectoryRequest)
+  .then(
+    (data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.error(error);
+    },
+  );
+
 //..frSuperPdpApprove
 import { Accounting } from "accountingsh";
 
@@ -1660,6 +1755,36 @@ let accounting = new Accounting("api-token");
 let frSuperPdpConfigureRequest = {}; // FrSuperPdpConfigureRequest |
 
 accounting.fRSuperPDP.frSuperPdpConfigure(frSuperPdpConfigureRequest).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpDeleteDirectory
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+let identifier = "identifier_example"; // String |
+
+accounting.fRSuperPDP.frSuperPdpDeleteDirectory(identifier).then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.error(error);
+  },
+);
+
+//..frSuperPdpDirectory
+import { Accounting } from "accountingsh";
+
+let accounting = new Accounting("api-token");
+
+accounting.fRSuperPDP.frSuperPdpDirectory().then(
   (data) => {
     console.log(data);
   },
